@@ -10,13 +10,13 @@ namespace TransportCompanyTests.ModelTests.SemitrailersTests
         [Fact]
         public void CreateFuelSemitrailer_MaxWeightLessThanZero_ThrowsArgumentException()
         {
-            Assert.Throws<ArgumentException>(() => new FuelSemitrailer(-10));
+            Assert.Throws<ArgumentException>(() => new TankSemitrailer(-10));
         }
 
         [Fact]
         public void LoadFuelSemitrailer_LoadOtherTypeProduct_ThrowsArgumentException()
         {
-            var fuelSemitrailer = new FuelSemitrailer(10);
+            var fuelSemitrailer = new TankSemitrailer(10);
             fuelSemitrailer.Load(new OctanePetrol_95(1), 2);
             Assert.Throws<ArgumentException>(() => fuelSemitrailer.Load(new DieselFuel(1), 2));
         }
@@ -27,7 +27,7 @@ namespace TransportCompanyTests.ModelTests.SemitrailersTests
         [InlineData(10000, 10000, 10000)]
         public void LoadFuelSemitrailer_LoadWithOctanePetrol95_ReturnsTrue(int capacity, int count, float expected)
         {
-            var fuelSemitrailer = new FuelSemitrailer(capacity);
+            var fuelSemitrailer = new TankSemitrailer(capacity);
             fuelSemitrailer.Load(new OctanePetrol_95(1), count);
             Assert.Equal(fuelSemitrailer.CurrentProductsWeight, expected);
         }
@@ -36,9 +36,9 @@ namespace TransportCompanyTests.ModelTests.SemitrailersTests
         public void LoadFuelSemitrailer_LoadWithOctanePetrol95AndUnload_ReturnsTrue()
         {
             float expected = 15;
-            var fuelSemitrailer = new FuelSemitrailer(100);
+            var fuelSemitrailer = new TankSemitrailer(100);
             fuelSemitrailer.Load(new OctanePetrol_95(1), 20);
-            fuelSemitrailer.Unload(5);
+            fuelSemitrailer.Unload(new OctanePetrol_95(1), 5);
             Assert.Equal(fuelSemitrailer.CurrentProductsWeight, expected);
         }
     }

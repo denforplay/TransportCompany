@@ -15,13 +15,7 @@ namespace TransportCompanyLib.Models.Semitrailers
             if (_semitrailerProducts.Count == 0 ||
                 (_semitrailerProducts.Count != 0 && _semitrailerProducts.First().GetType() == product.GetType()))
             {
-                while (count-- > 0)
-                {
-                    if (CurrentProductsWeight + product.WeightPerProduct <= MaxCarryingWeight)
-                        _semitrailerProducts.Add(product);
-                    else
-                        break;
-                }
+                base.Load(product, count);
             }
             else
             {

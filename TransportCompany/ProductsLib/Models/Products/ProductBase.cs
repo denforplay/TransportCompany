@@ -2,6 +2,9 @@
 
 namespace ProductsLib.Models.Products
 {
+    /// <summary>
+    /// Represents products base
+    /// </summary>
     public abstract class ProductBase
     {
         private float _weightPerProduct;
@@ -15,6 +18,27 @@ namespace ProductsLib.Models.Products
             }
 
             _weightPerProduct = weightPerProduct;
+        }
+
+        public override bool Equals(object obj)
+        {
+            if (obj is ProductBase product)
+            {
+                return GetType().Name == product.GetType().Name && _weightPerProduct == product.WeightPerProduct;
+            }
+
+            return false;
+        }
+
+        public override int GetHashCode()
+        {
+            int hash = 12 * _weightPerProduct.GetHashCode();
+            return hash;
+        }
+
+        public override string ToString()
+        {
+            return $"{GetType().Name} with weight {_weightPerProduct}";
         }
     }
 }

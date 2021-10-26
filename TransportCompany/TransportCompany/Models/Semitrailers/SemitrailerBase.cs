@@ -26,14 +26,24 @@ namespace TransportCompanyLib.Models.Semitrailers
         /// <summary>
         /// Method to load product in semitrailer
         /// </summary>
-        public abstract void Load(T product, int count);
+        public virtual void Load(T product, int count)
+        {
+            while (count-- > 0)
+            {
+                if (CurrentProductsWeight + product.WeightPerProduct <= MaxCarryingWeight)
+                    _semitrailerProducts.Add(product);
+                else
+                    break;
+            }
+        }
 
-        public void Unload(int productCount)
+        public void Unload(T product, int productCount)
         {
             while(productCount-- != 0 && _semitrailerProducts.Count != 0)
             {
-                var product = _semitrailerProducts.Last();
-                _semitrailerProducts.Remove(product);
+                var findedProduct = _semitrailerProducts.Last(pr => pr.Equals(product));
+                if (findedProduct is null) break;
+                _semitrailerProducts.Remove(findedProduct);
             }
         }
     }
