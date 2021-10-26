@@ -8,6 +8,6 @@ namespace TransportCompanyLib.Models
     public sealed class AutoPark
     {
         private List<SemitrailerTractorBase> _semitrailerTractors;
-        private List<SemitrailerBase<ProductBase>> _semitrailers;
+        private List<SemitrailerBase> _semitrailers;
     }
 }

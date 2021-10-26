@@ -5,9 +5,9 @@ using System.Linq;
 
 namespace TransportCompanyLib.Models.Semitrailers
 {
-    public abstract class SemitrailerBase<T> where T : ProductBase
+    public abstract class SemitrailerBase
     {
-        protected List<T> _semitrailerProducts;
+        protected List<ProductBase> _semitrailerProducts;
         private float _maxCarryingWeight;
         public float CurrentProductsWeight => _semitrailerProducts.Sum(x => x.WeightPerProduct);
         public float MaxCarryingWeight => _maxCarryingWeight;
@@ -19,14 +19,14 @@ namespace TransportCompanyLib.Models.Semitrailers
                 throw new ArgumentException(nameof(maxCarryingWeight));
             }
 
-            _semitrailerProducts = new List<T>();
+            _semitrailerProducts = new List<ProductBase>();
             _maxCarryingWeight = maxCarryingWeight;
         }
 
         /// <summary>
         /// Method to load product in semitrailer
         /// </summary>
-        public virtual void Load(T product, int count)
+        public virtual void Load(ProductBase product, int count)
         {
             while (count-- > 0)
             {
@@ -37,7 +37,7 @@ namespace TransportCompanyLib.Models.Semitrailers
             }
         }
 
-        public void Unload(T product, int productCount)
+        public void Unload(ProductBase product, int productCount)
         {
             while(productCount-- != 0 && _semitrailerProducts.Count != 0)
             {

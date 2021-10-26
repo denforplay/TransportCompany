@@ -2,7 +2,7 @@
 using System;
 using Xunit;
 
-namespace TransportCompanyTests.ModelTests.ProductsTests
+namespace ProductsLib.ModelTests.ProductsTests
 {
     public class ColdProductsTests
     {

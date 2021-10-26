@@ -1,8 +1,10 @@
-﻿using ProductsLib.Models.Products.NeedColdProducts;
+﻿using ProductsLib.Models.Products;
+using ProductsLib.Models.Products.NeedColdProducts;
+using System;
 
 namespace TransportCompanyLib.Models.Semitrailers
 {
-    public class RefrigeratorSemitrailer : SemitrailerBase<NeedColdProductBase>
+    public class RefrigeratorSemitrailer : SemitrailerBase
     {
         private float _lowTemperature;
         private float _highTemperature;
@@ -13,13 +15,22 @@ namespace TransportCompanyLib.Models.Semitrailers
             _highTemperature = highTemperature;
         }
 
-        public override void Load(NeedColdProductBase product, int count)
+        public override void Load(ProductBase product, int count)
         {
-            if (product.LowerTemperature >= _lowTemperature && product.HigherTemperature <= _highTemperature)
+            if (product is not NeedColdProductBase needColdProduct)
             {
-                if (_semitrailerProducts.TrueForAll(pr => product.LowerTemperature >= pr.LowerTemperature && product.HigherTemperature <= pr.HigherTemperature))
+                throw new ArgumentException("In refregerator you can load only products which need cold");
+            }
+
+            if (needColdProduct.LowerTemperature >= _lowTemperature && needColdProduct.HigherTemperature <= _highTemperature)
+            {
+                if (_semitrailerProducts.TrueForAll(pr => (pr is NeedColdProductBase coldPr) && needColdProduct.LowerTemperature >= coldPr.LowerTemperature && needColdProduct.HigherTemperature <= coldPr.HigherTemperature))
                 {
                     base.Load(product, count);
+                }
+                else
+                {
+                    throw new ArgumentException("Product unconnactable with other products in refregerator");
                 }
             }
         }
