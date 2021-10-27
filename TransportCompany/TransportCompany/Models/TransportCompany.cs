@@ -1,11 +1,12 @@
-﻿using System.Collections.Generic;
-using TransportCompanyLib.Models.Semitrailers;
-using TransportCompanyLib.Models.SemitrailerTractors;
-
-namespace TransportCompanyLib.Models
+﻿namespace TransportCompanyLib.Models
 {
     public sealed class TransportCompany
     {
-        private AutoPark _autoPark;
+        private Autopark _autoPark;
+
+        public TransportCompany(Autopark autopark)
+        {
+            _autoPark = autopark;
+        }
     }
 }

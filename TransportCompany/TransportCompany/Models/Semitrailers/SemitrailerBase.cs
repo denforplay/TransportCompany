@@ -2,15 +2,18 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
+using XmlDataWorker.Models;
 
 namespace TransportCompanyLib.Models.Semitrailers
 {
-    public abstract class SemitrailerBase
+    public abstract class SemitrailerBase : IXmlable
     {
         protected List<ProductBase> _semitrailerProducts;
         private float _maxCarryingWeight;
         public float CurrentProductsWeight => _semitrailerProducts.Sum(x => x.WeightPerProduct);
         public float MaxCarryingWeight => _maxCarryingWeight;
+        public List<ProductBase> SemitrailerProducts => _semitrailerProducts;
 
         public SemitrailerBase(float maxCarryingWeight)
         {
@@ -45,6 +48,20 @@ namespace TransportCompanyLib.Models.Semitrailers
                 if (findedProduct is null) break;
                 _semitrailerProducts.Remove(findedProduct);
             }
+        }
+
+        public string WriteInXml()
+        {
+            StringBuilder xml = new StringBuilder();
+            xml.Append($"<{GetType().Name}>\n");
+            xml.Append($"<{nameof(SemitrailerProducts)}>");
+            foreach (var product in SemitrailerProducts)
+                xml.Append(product.WriteInXml());
+            xml.Append($"</{nameof(SemitrailerProducts)}>");
+            xml.Append($"<{nameof(MaxCarryingWeight)}>{MaxCarryingWeight}</{nameof(MaxCarryingWeight)}>\n");
+            xml.Append($"<{nameof(CurrentProductsWeight)}>{CurrentProductsWeight}</{nameof(CurrentProductsWeight)}>\n");
+            xml.Append($"</{GetType().Name}>\n");
+            return xml.ToString();
         }
     }
 }
