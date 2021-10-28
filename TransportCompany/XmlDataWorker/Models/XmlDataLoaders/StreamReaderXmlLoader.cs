@@ -6,9 +6,9 @@ using System.Xml;
 
 namespace XmlDataWorker.Models.DataLoaders
 {
-    public sealed class StreamReaderLoader<T> : IDataLoader<T>
+    public sealed class StreamReaderXmlLoader<T> : XmlLoaderBase<T> where T : class
     {
-        public XmlDocument LoadData(string path)
+        public override XmlDocument LoadData(string path)
         {
             if (!File.Exists(path))
                 throw new IOException("Cant open file");
