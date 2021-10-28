@@ -13,13 +13,11 @@ namespace TransportCompanyTests.ModelTests.DataSaversTests
     public class StreamWriterToXmlTests
     {
         [Fact]
-        public void TestWritinigDataInXml()
+        public void TestWritingProductDataInXml()
         {
             IDataSaver<DieselFuel> dataSaver = new StreamWriterToXml<DieselFuel>();
             dataSaver.SaveData(new DieselFuel(5));
             IDataLoader<DieselFuel> dataLoader = new StreamReaderLoader<DieselFuel>();
-            dataLoader.LoadData(Directory.GetCurrentDirectory() + "/autopark.xml");
-            Type type = Type.GetType("TankSemitrailer");
         }
     }
 }

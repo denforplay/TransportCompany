@@ -1,7 +1,9 @@
-﻿namespace XmlDataWorker.Models.DataLoaders
+﻿using System.Xml;
+
+namespace XmlDataWorker.Models.DataLoaders
 {
-    public interface IDataLoader<T> where T : IXmlable
+    public interface IDataLoader<T>
     {
-        public void LoadData(string path);
+        public XmlDocument LoadData(string path);
     }
 }

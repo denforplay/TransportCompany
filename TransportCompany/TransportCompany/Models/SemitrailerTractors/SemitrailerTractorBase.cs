@@ -2,17 +2,18 @@
 using System;
 using System.Linq;
 using System.Text;
+using System.Xml;
 using TransportCompanyLib.Models.Semitrailers;
 using XmlDataWorker.Models;
 
 namespace TransportCompanyLib.Models.SemitrailerTractors
 {
-    public abstract class SemitrailerTractorBase : IXmlable
+    public abstract class SemitrailerTractorBase
     {
         private int _maxSemitrailerWeight;
         private SemitrailerBase _semitrailer;
         public SemitrailerBase Semitrailer => _semitrailer;
-
+        public int MaxSemitrailerWeight => _maxSemitrailerWeight;
         public SemitrailerTractorBase(int maxSemitrailerWeight)
         {
             if (maxSemitrailerWeight <= 0)
@@ -31,23 +32,6 @@ namespace TransportCompanyLib.Models.SemitrailerTractors
             }
 
             _semitrailer = semitrailer;
-        }
-
-        public string WriteInXml()
-        {
-            StringBuilder xml = new StringBuilder();
-            xml.Append($"<{GetType().Name}>\n");
-            if (Semitrailer is not null)
-            {
-                xml.Append(Semitrailer.WriteInXml());
-            }
-            xml.Append($"</{GetType().Name}>\n");
-            return xml.ToString();
-        }
-
-        public void Factory()
-        {
-            
         }
     }
 }

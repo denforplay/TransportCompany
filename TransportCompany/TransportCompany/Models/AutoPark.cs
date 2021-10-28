@@ -1,13 +1,14 @@
 ﻿using ProductsLib.Models.Products;
 using System.Collections.Generic;
 using System.Text;
+using System.Xml;
 using TransportCompanyLib.Models.Semitrailers;
 using TransportCompanyLib.Models.SemitrailerTractors;
 using XmlDataWorker.Models;
 
 namespace TransportCompanyLib.Models
 {
-    public sealed class Autopark : IXmlable
+    public sealed class Autopark
     {
         private List<SemitrailerTractorBase> _semitrailerTractors;
         private List<SemitrailerBase> _semitrailers;
@@ -41,16 +42,6 @@ namespace TransportCompanyLib.Models
         public List<SemitrailerTractorBase> FindAllHitchesThatCanBeLoaded()
         {
             return _semitrailerTractors.FindAll(tractor => tractor.Semitrailer != null && tractor.Semitrailer.CurrentProductsWeight < tractor.Semitrailer.MaxCarryingWeight);
-        }
-
-        public string WriteInXml()
-        {
-           StringBuilder xmlView = new StringBuilder("<SemitrailerTractors>\n");
-            for (int i = 0; i < _semitrailerTractors.Count; i++)
-            {
-            }
-            xmlView.Append("</SemitrailerTractors>");
-            return xmlView.ToString();
         }
     }
 }

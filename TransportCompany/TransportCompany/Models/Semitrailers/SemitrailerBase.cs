@@ -3,11 +3,12 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Xml;
 using XmlDataWorker.Models;
 
 namespace TransportCompanyLib.Models.Semitrailers
 {
-    public abstract class SemitrailerBase : IXmlable
+    public abstract class SemitrailerBase
     {
         protected List<ProductBase> _semitrailerProducts;
         private float _maxCarryingWeight;
@@ -48,20 +49,6 @@ namespace TransportCompanyLib.Models.Semitrailers
                 if (findedProduct is null) break;
                 _semitrailerProducts.Remove(findedProduct);
             }
-        }
-
-        public string WriteInXml()
-        {
-            StringBuilder xml = new StringBuilder();
-            xml.Append($"<{GetType().Name}>\n");
-            xml.Append($"<{nameof(SemitrailerProducts)}>");
-            foreach (var product in SemitrailerProducts)
-                xml.Append(product.WriteInXml());
-            xml.Append($"</{nameof(SemitrailerProducts)}>");
-            xml.Append($"<{nameof(MaxCarryingWeight)}>{MaxCarryingWeight}</{nameof(MaxCarryingWeight)}>\n");
-            xml.Append($"<{nameof(CurrentProductsWeight)}>{CurrentProductsWeight}</{nameof(CurrentProductsWeight)}>\n");
-            xml.Append($"</{GetType().Name}>\n");
-            return xml.ToString();
         }
     }
 }

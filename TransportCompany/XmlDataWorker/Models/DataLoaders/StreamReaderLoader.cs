@@ -1,11 +1,14 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
+using System.Linq;
+using System.Reflection;
 using System.Xml;
 
 namespace XmlDataWorker.Models.DataLoaders
 {
-    public sealed class StreamReaderLoader<T> : IDataLoader<T> where T : IXmlable
+    public sealed class StreamReaderLoader<T> : IDataLoader<T>
     {
-        public void LoadData(string path)
+        public XmlDocument LoadData(string path)
         {
             if (!File.Exists(path))
                 throw new IOException("Cant open file");
@@ -16,6 +19,7 @@ namespace XmlDataWorker.Models.DataLoaders
                 xml.Load(streamReader);
             }
 
+            return xml;
         }
     }
 }
