@@ -13,7 +13,10 @@ namespace TransportCompanyLib.Models
         private List<SemitrailerTractorBase> _semitrailerTractors;
         private List<SemitrailerBase> _semitrailers;
 
-        public void AutoPark()
+        public List<SemitrailerTractorBase> SemitrailerTractors => _semitrailerTractors;
+        public List<SemitrailerBase> Semitrailers => _semitrailers;
+
+        public Autopark()
         {
             _semitrailerTractors = new List<SemitrailerTractorBase>();
             _semitrailers = new List<SemitrailerBase>();
