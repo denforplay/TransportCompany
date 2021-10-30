@@ -1,4 +1,5 @@
 ﻿using System.IO;
+using TransportCompanyLib.Models.Factories;
 using XmlDataWorker.Models.DataLoaders;
 using XmlDataWorker.Models.DataSavers;
 
@@ -9,11 +10,13 @@ namespace XmlDataWorker.Models.DataSaveLoaders
         private string FILE_PATH = Directory.GetCurrentDirectory() + "/autopark.xml";
         private XmlLoaderBase<T> _dataLoader;
         private XmlSaverBase<T> _dataSaver;
+        private IFromXmlFactory<T> _xmlFactory;
 
-        public XmlSaveLoader(XmlLoaderBase<T> dataLoader, XmlSaverBase<T> dataSaver)
+        public XmlSaveLoader(XmlLoaderBase<T> dataLoader, XmlSaverBase<T> dataSaver, IFromXmlFactory<T> fromXmlFactory)
         {
             _dataLoader = dataLoader;
             _dataSaver = dataSaver;
+            _xmlFactory = fromXmlFactory;
         }
 
         public void Save(T objectToSave)
@@ -24,7 +27,7 @@ namespace XmlDataWorker.Models.DataSaveLoaders
         public T Load()
         {
             var test = _dataLoader.LoadData(FILE_PATH);
-            return null;
+            return _xmlFactory.Create(test[typeof(T).Name]);
         }
     }
 }

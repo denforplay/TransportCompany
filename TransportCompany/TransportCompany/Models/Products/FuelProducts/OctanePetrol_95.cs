@@ -1,4 +1,4 @@
-﻿namespace ProductsLib.Models.Products.FuelProducts
+﻿namespace TransportCompanyLib.Models.Products.FuelProducts
 {
     public sealed class OctanePetrol_95 : LiquidProductBase
     {

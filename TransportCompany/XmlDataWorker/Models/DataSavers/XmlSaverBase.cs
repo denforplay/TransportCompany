@@ -11,12 +11,12 @@ namespace XmlDataWorker.Models.DataSavers
         protected StringBuilder ConvertToXml(T objectToSave)
         {
             StringBuilder xmlBuilder = new StringBuilder();
-            xmlBuilder.Append($"<{typeof(T)}>\n");
+            xmlBuilder.Append($"<{typeof(T).Name}>\n");
             foreach (var property in typeof(T).GetProperties())
             {
                 Read(xmlBuilder, property, objectToSave, "\t");
             }
-            xmlBuilder.Append($"</{typeof(T)}>");
+            xmlBuilder.Append($"</{typeof(T).Name}>");
             return xmlBuilder;
         }
 
@@ -30,12 +30,12 @@ namespace XmlDataWorker.Models.DataSavers
             {
                 foreach (var listElem in list)
                 {
-                    xmlBuilder.AppendLine($"\t\t{tabulation}<{listElem.GetType().Name}>");
+                    xmlBuilder.AppendLine($"\t\t{tabulation}<{listElem.GetType().FullName}>");
                     foreach (var listElemProperty in listElem.GetType().GetProperties())
                     {
                         Read(xmlBuilder, listElemProperty, listElem, tabulation + "\t\t");
                     }
-                    xmlBuilder.AppendLine($"\t\t{tabulation}</{listElem.GetType().Name}>");
+                    xmlBuilder.AppendLine($"\t\t{tabulation}</{listElem.GetType().FullName}>");
                 }
             }
             else

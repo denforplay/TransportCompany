@@ -1,13 +1,13 @@
 ﻿using System;
 
-namespace ProductsLib.Models.Products.NeedColdProducts
+namespace TransportCompanyLib.Models.Products.NeedColdProducts
 {
     public abstract class NeedColdProductBase : ProductBase
     {
-        public int LowerTemperature { get; private set; }
-        public int HigherTemperature { get; private set; }
+        public float LowerTemperature { get; private set; }
+        public float HigherTemperature { get; private set; }
 
-        public NeedColdProductBase(float weightPerProduct, int lowerTemperature, int highTemperature) : base(weightPerProduct)
+        public NeedColdProductBase(float weightPerProduct, float lowerTemperature, float highTemperature) : base(weightPerProduct)
         {
             if (lowerTemperature > highTemperature)
             {

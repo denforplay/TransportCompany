@@ -1,10 +1,8 @@
-﻿using ProductsLib.Models.Products;
-using System;
+﻿using System;
 using System.Linq;
 using System.Text;
 using System.Xml;
 using TransportCompanyLib.Models.Semitrailers;
-using XmlDataWorker.Models;
 
 namespace TransportCompanyLib.Models.SemitrailerTractors
 {

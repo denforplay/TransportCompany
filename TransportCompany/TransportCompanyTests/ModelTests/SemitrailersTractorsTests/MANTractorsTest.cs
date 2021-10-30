@@ -1,6 +1,5 @@
-﻿using ProductsLib.Models.Products;
-using ProductsLib.Models.Products.FuelProducts;
-using System;
+﻿using System;
+using TransportCompanyLib.Models.Products.FuelProducts;
 using TransportCompanyLib.Models.Semitrailers;
 using TransportCompanyLib.Models.SemitrailerTractors;
 using Xunit;

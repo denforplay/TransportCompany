@@ -1,7 +1,7 @@
-﻿using ProductsLib.Models.Products;
-using ProductsLib.Models.Products.FuelProducts;
-using System;
+﻿using System;
 using System.Linq;
+using TransportCompanyLib.Models.Products;
+using TransportCompanyLib.Models.Products.FuelProducts;
 
 namespace TransportCompanyLib.Models.Semitrailers
 {
