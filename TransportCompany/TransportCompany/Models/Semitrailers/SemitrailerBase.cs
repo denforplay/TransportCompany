@@ -47,5 +47,24 @@ namespace TransportCompanyLib.Models.Semitrailers
                 _semitrailerProducts.Remove(findedProduct);
             }
         }
+
+        public override bool Equals(object obj)
+        {
+            if (obj is SemitrailerBase semitrailer)
+            {
+                return semitrailer.MaxCarryingWeight == this.MaxCarryingWeight
+                       && semitrailer.SemitrailerProducts.Except(SemitrailerProducts).Count() == 0;
+            }
+
+            return false;
+        }
+
+        public override int GetHashCode()
+        {
+            int hash = 1221;
+            hash += MaxCarryingWeight.GetHashCode() * 8;
+            hash += SemitrailerProducts.Sum(x => x.GetHashCode() * 3);
+            return hash;
+        }
     }
 }
