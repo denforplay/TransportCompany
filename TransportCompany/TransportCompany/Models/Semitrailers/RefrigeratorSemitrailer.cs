@@ -7,14 +7,19 @@ namespace TransportCompanyLib.Models.Semitrailers
 {
     public class RefrigeratorSemitrailer : SemitrailerBase
     {
-        public float LowerTemperature { get; private set; }
-        public float HighTemperature { get; private set; }
-
-        public RefrigeratorSemitrailer(float maxCarryingWeight, float lowTemperature, float highTemperature) : base(maxCarryingWeight)
+        public RefrigeratorSemitrailer(float maxCarryingWeight, float maxCarryingVolume, float lowerTemperature, float highTemperature) : base(maxCarryingWeight, maxCarryingVolume)
         {
-            LowerTemperature = lowTemperature;
+            if (highTemperature <= lowerTemperature)
+            {
+                throw new ArgumentException(nameof(highTemperature), "higher temperature must be higher than lower temperature");
+            }
+
+            LowerTemperature = lowerTemperature;
             HighTemperature = highTemperature;
         }
+
+        public float LowerTemperature { get; private set; }
+        public float HighTemperature { get; private set; }
 
         public override void Load(ProductBase product, int count)
         {

@@ -7,7 +7,7 @@ namespace TransportCompanyLib.Models.Semitrailers
 {
     public sealed class TankSemitrailer : SemitrailerBase
     {
-        public TankSemitrailer(float carryingCapacity) : base(carryingCapacity)
+        public TankSemitrailer(float maxCarryingWeight, float maxCarryingVolume) : base(maxCarryingWeight, maxCarryingVolume)
         {
         }
 

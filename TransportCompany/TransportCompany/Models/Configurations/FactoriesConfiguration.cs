@@ -31,7 +31,7 @@ namespace TransportCompanyLib.Models.Configurations
 
         public static Dictionary<Type, IFromXmlFactory<SemitrailerTractorBase>> TractorsFactories = new()
         {
-            { typeof(TankSemitrailer), new FromXmlTractorFactory<MANTractor>() },
+            { typeof(MANTractor), new FromXmlTractorFactory<MANTractor>() },
         };
     }
 }

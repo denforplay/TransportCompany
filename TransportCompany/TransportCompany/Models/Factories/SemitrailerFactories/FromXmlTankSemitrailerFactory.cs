@@ -11,7 +11,8 @@ namespace TransportCompanyLib.Models.Factories.SemitrailerFactories
         public TankSemitrailer Create(XmlNode xmlNode)
         {
             float maxProducts = float.Parse(xmlNode[nameof(TankSemitrailer.MaxCarryingWeight)].InnerText);
-            TankSemitrailer tankSemitrailer = new TankSemitrailer(maxProducts);
+            float maxVolume = float.Parse(xmlNode[nameof(TankSemitrailer.MaxCarryingVolume)].InnerText);
+            TankSemitrailer tankSemitrailer = new TankSemitrailer(maxProducts, maxVolume);
             foreach (XmlNode product in xmlNode[nameof(TankSemitrailer.SemitrailerProducts)].ChildNodes)
             {
                 Type productType = Type.GetType(product.Name);

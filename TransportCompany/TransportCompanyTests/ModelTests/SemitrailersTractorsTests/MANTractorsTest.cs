@@ -20,7 +20,7 @@ namespace TransportCompanyTests.ModelTests.SemitrailersTractorsTests
         public void CreateManTractor_ConnectWithSemitrailer()
         {
             var tractor = new MANTractor(1000);
-            SemitrailerBase semitrailer = new TankSemitrailer(900);
+            SemitrailerBase semitrailer = new TankSemitrailer(900, 1500);
             tractor.ConnectSemitrailer(semitrailer);
             semitrailer.Load(new DieselFuel(1, 0.5f), 5);
             Assert.Equal(5, tractor.Semitrailer.CurrentProductsWeight);

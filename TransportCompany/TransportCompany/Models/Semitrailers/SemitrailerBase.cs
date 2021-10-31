@@ -9,20 +9,30 @@ namespace TransportCompanyLib.Models.Semitrailers
     {
         protected List<ProductBase> _semitrailerProducts;
         private float _maxCarryingWeight;
-        public float CurrentProductsWeight => _semitrailerProducts.Sum(x => x.WeightPerProduct);
-        public float MaxCarryingWeight => _maxCarryingWeight;
-        public List<ProductBase> SemitrailerProducts => _semitrailerProducts;
+        private float _maxCarryingVolume;
 
-        public SemitrailerBase(float maxCarryingWeight)
+        public SemitrailerBase(float maxCarryingWeight, float maxCarryingVolume)
         {
             if (maxCarryingWeight <= 0)
             {
-                throw new ArgumentException(nameof(maxCarryingWeight));
+                throw new ArgumentOutOfRangeException(nameof(maxCarryingWeight));
+            }
+
+            if (maxCarryingVolume <= 0)
+            {
+                throw new ArgumentOutOfRangeException(nameof(maxCarryingWeight));
             }
 
             _semitrailerProducts = new List<ProductBase>();
+            _maxCarryingVolume = maxCarryingVolume;
             _maxCarryingWeight = maxCarryingWeight;
         }
+
+        public float CurrentProductsWeight => _semitrailerProducts.Sum(x => x.WeightPerProduct);
+        public float MaxCarryingWeight => _maxCarryingWeight;
+        public float CurrentCarryingVolume => _semitrailerProducts.Sum(x => x.VolumePerProduct);
+        public float MaxCarryingVolume => _maxCarryingVolume;
+        public List<ProductBase> SemitrailerProducts => _semitrailerProducts;
 
         /// <summary>
         /// Method to load product in semitrailer
@@ -31,7 +41,8 @@ namespace TransportCompanyLib.Models.Semitrailers
         {
             while (count-- > 0)
             {
-                if (CurrentProductsWeight + product.WeightPerProduct <= MaxCarryingWeight)
+                if (CurrentProductsWeight + product.WeightPerProduct <= MaxCarryingWeight
+                    && CurrentCarryingVolume + product.VolumePerProduct <= MaxCarryingVolume)
                     _semitrailerProducts.Add(product);
                 else
                     break;
