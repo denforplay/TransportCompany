@@ -4,7 +4,7 @@ using TransportCompanyLib.Models.SemitrailerTractors;
 
 namespace TransportCompanyLib.Models.Factories.TractorFactories
 {
-    public class TractorFromXmlFactory<T> : IFromXmlFactory<T> where T : SemitrailerTractorBase
+    public class FromXmlTractorFactory<T> : IFromXmlFactory<T> where T : SemitrailerTractorBase
     {
         public T Create(XmlNode xmlNode)
         {

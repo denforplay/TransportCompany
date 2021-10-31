@@ -1,5 +1,6 @@
 ﻿using TransportCompanyLib.Models;
 using TransportCompanyLib.Models.Factories;
+using TransportCompanyLib.Models.Factories.AutoparkFactory;
 using TransportCompanyLib.Models.Factories.ProductFactories;
 using TransportCompanyLib.Models.Factories.SemitrailerFactories;
 using TransportCompanyLib.Models.Factories.TractorFactories;
@@ -76,10 +77,22 @@ namespace TransportCompanyTests.ModelTests.DataSaversTests
             RefrigeratorSemitrailer expectedSemitrailer = new RefrigeratorSemitrailer(100, -5, 5);
             expectedSemitrailer.Load(new Yogurt(1, -4, 4), 10);
             expectedTractor.ConnectSemitrailer(expectedSemitrailer);
-            var serializer = new XmlSaveLoader<MANTractor>(new StreamReaderXmlLoader<MANTractor>(), new StreamWriterToXml<MANTractor>(), new TractorFromXmlFactory<MANTractor>());
+            var serializer = new XmlSaveLoader<MANTractor>(new StreamReaderXmlLoader<MANTractor>(), new StreamWriterToXml<MANTractor>(), new FromXmlTractorFactory<MANTractor>());
             serializer.Save(expectedTractor);
             MANTractor realTractor = serializer.Load();
             Assert.True(expectedTractor.Equals(realTractor));
+        }
+
+        [Fact]
+        public void TestWritingAutoparkDataInXml()
+        {
+            Autopark expectedAutopark = new Autopark();
+            RefrigeratorSemitrailer expectedSemitrailer = new RefrigeratorSemitrailer(100, -5, 5);
+            expectedSemitrailer.Load(new Yogurt(1, -4, 4), 10);
+            expectedAutopark.AddSemitrailer(expectedSemitrailer);
+            var serializer = new XmlSaveLoader<Autopark>(new StreamReaderXmlLoader<Autopark>(), new StreamWriterToXml<Autopark>(), new AutoparkFromXmlFactory());
+            serializer.Save(expectedAutopark);
+            Autopark actualAutopark = serializer.Load();
         }
     }
 }
