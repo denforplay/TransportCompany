@@ -40,26 +40,31 @@ namespace XmlDataWorker.Models.DataSavers
                     xmlBuilder.Append($"\t\t{tabulation}</{listElem.GetType().FullName}>");
                 }
 
-                xmlBuilder.Append($"\n\t{tabulation}");
+                xmlBuilder.Append($"\n");
             }
             else
             {
                 var length = currentProperty.PropertyType.GetProperties().Length;
                 if (length == 0)
                 {
-                    xmlBuilder.Append($"{currentProperty.GetValue(currentObject)}");
+                    xmlBuilder.Append($"{currentProperty.GetValue(currentObject)}</{currentProperty.Name}>\n");
+                    return;
                 }
                 else
                 {
                     var innerObject = currentProperty.GetValue(currentObject);
-                    foreach (var innerProperty in currentProperty.PropertyType.GetProperties())
+                    if (innerObject is not null)
                     {
-                        Read(xmlBuilder, innerProperty, innerObject, tabulation + "\t");
+                        xmlBuilder.AppendLine();
+                        foreach (var innerProperty in currentProperty.PropertyType.GetProperties())
+                        {
+                            Read(xmlBuilder, innerProperty, innerObject, tabulation + "\t");
+                        }
                     }
                 }
             }
 
-            xmlBuilder.AppendLine($"</{currentProperty.Name}>");
+            xmlBuilder.AppendLine($"\t{tabulation}</{currentProperty.Name}>");
         }
     }
 }

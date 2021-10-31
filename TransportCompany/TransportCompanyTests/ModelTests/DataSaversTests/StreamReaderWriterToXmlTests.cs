@@ -2,6 +2,7 @@
 using TransportCompanyLib.Models.Factories;
 using TransportCompanyLib.Models.Factories.ProductFactories;
 using TransportCompanyLib.Models.Factories.SemitrailerFactories;
+using TransportCompanyLib.Models.Factories.TractorFactories;
 using TransportCompanyLib.Models.Products.FuelProducts;
 using TransportCompanyLib.Models.Products.NeedColdProducts;
 using TransportCompanyLib.Models.Semitrailers;
@@ -62,10 +63,23 @@ namespace TransportCompanyTests.ModelTests.DataSaversTests
         {
             RefrigeratorSemitrailer expectedSemitrailer = new RefrigeratorSemitrailer(500, -5, 5);
             expectedSemitrailer.Load(new Yogurt(1, -4, 4), 10);
-            var writerToXml = new XmlSaveLoader<RefrigeratorSemitrailer>(new StreamReaderXmlLoader<RefrigeratorSemitrailer>(), new XmlWriterToXml<RefrigeratorSemitrailer>(), new FromXmlRefrigeratorSemitrailerFactory());
+            var writerToXml = new XmlSaveLoader<RefrigeratorSemitrailer>(new StreamReaderXmlLoader<RefrigeratorSemitrailer>(), new StreamWriterToXml<RefrigeratorSemitrailer>(), new FromXmlRefrigeratorSemitrailerFactory());
             writerToXml.Save(expectedSemitrailer);
             RefrigeratorSemitrailer actualSemitrailer = writerToXml.Load();
             Assert.True(expectedSemitrailer.Equals(actualSemitrailer));
+        }
+
+        [Fact]
+        public void TestWritingMANTractorDataInXml()
+        {
+            MANTractor expectedTractor = new MANTractor(100);
+            RefrigeratorSemitrailer expectedSemitrailer = new RefrigeratorSemitrailer(100, -5, 5);
+            expectedSemitrailer.Load(new Yogurt(1, -4, 4), 10);
+            expectedTractor.ConnectSemitrailer(expectedSemitrailer);
+            var serializer = new XmlSaveLoader<MANTractor>(new StreamReaderXmlLoader<MANTractor>(), new StreamWriterToXml<MANTractor>(), new TractorFromXmlFactory<MANTractor>());
+            serializer.Save(expectedTractor);
+            MANTractor realTractor = serializer.Load();
+            Assert.True(expectedTractor.Equals(realTractor));
         }
     }
 }

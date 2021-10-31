@@ -2,7 +2,7 @@
 {
     public sealed class MANTractor : SemitrailerTractorBase
     {
-        public MANTractor(int maxSemitrailerWeight) : base(maxSemitrailerWeight)
+        public MANTractor(float maxSemitrailerWeight) : base(maxSemitrailerWeight)
         {
         }
     }

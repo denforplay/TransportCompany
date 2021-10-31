@@ -8,11 +8,11 @@ namespace TransportCompanyLib.Models.SemitrailerTractors
 {
     public abstract class SemitrailerTractorBase
     {
-        private int _maxSemitrailerWeight;
+        private float _maxSemitrailerWeight;
         private SemitrailerBase _semitrailer;
         public SemitrailerBase Semitrailer => _semitrailer;
-        public int MaxSemitrailerWeight => _maxSemitrailerWeight;
-        public SemitrailerTractorBase(int maxSemitrailerWeight)
+        public float MaxSemitrailerWeight => _maxSemitrailerWeight;
+        public SemitrailerTractorBase(float maxSemitrailerWeight)
         {
             if (maxSemitrailerWeight <= 0)
             {
@@ -30,6 +30,17 @@ namespace TransportCompanyLib.Models.SemitrailerTractors
             }
 
             _semitrailer = semitrailer;
+        }
+
+        public override bool Equals(object obj)
+        {
+            if (obj is SemitrailerTractorBase otherTractor)
+            {
+                return otherTractor.MaxSemitrailerWeight == MaxSemitrailerWeight
+                    && this.GetType() == otherTractor.GetType();
+            }
+
+            return false;
         }
     }
 }
