@@ -9,8 +9,7 @@ namespace TransportCompanyTests.ModelTests.ProductsTests
         [Fact]
         public void CreateDieselFuel_WeightLessThanZero_ThrowsArgumentException()
         {
-            Assert.Throws<ArgumentOutOfRangeException>(() => new DieselFuel(-1));
-
+            Assert.Throws<ArgumentOutOfRangeException>(() => new DieselFuel(-1, 1));
         }
     }
 }

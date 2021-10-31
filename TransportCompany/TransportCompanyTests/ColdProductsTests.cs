@@ -9,7 +9,7 @@ namespace ProductsLib.ModelTests.ProductsTests
         [Fact]
         public void CreateMilkProduct_LowerTemperetureHigherThanHigherTemperature_ThrowsArgumentException()
         {
-            Assert.Throws<ArgumentException>(() => new Milk(1, 5, 0));
+            Assert.Throws<ArgumentException>(() => new Milk(1, 1, 5, 0));
         }
     }
 }

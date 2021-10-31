@@ -9,7 +9,8 @@ namespace TransportCompanyLib.Models.Factories.ProductFactories
         public T Create(XmlNode xmlNode)
         {
             float productWeight = float.Parse(xmlNode[nameof(LiquidProductBase.WeightPerProduct)].InnerText);
-            T fuelProduct = (T)Activator.CreateInstance(typeof(T), productWeight);
+            float productVolume = float.Parse(xmlNode[nameof(LiquidProductBase.VolumePerProduct)].InnerText);
+            T fuelProduct = (T)Activator.CreateInstance(typeof(T), productWeight, productVolume);
             return fuelProduct;
         }
     }

@@ -7,7 +7,7 @@ namespace TransportCompanyLib.Models.Products.NeedColdProducts
         public float LowerTemperature { get; private set; }
         public float HigherTemperature { get; private set; }
 
-        public NeedColdProductBase(float weightPerProduct, float lowerTemperature, float highTemperature) : base(weightPerProduct)
+        protected NeedColdProductBase(float weightPerProduct, float volumePerProduct, float lowerTemperature, float highTemperature) : base(weightPerProduct, volumePerProduct)
         {
             if (lowerTemperature > highTemperature)
             {

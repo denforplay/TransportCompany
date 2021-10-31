@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Xml;
 using System.Xml.Serialization;
+using TransportCompanyLib.Models.Configurations;
 using TransportCompanyLib.Models.Products.NeedColdProducts;
 using TransportCompanyLib.Models.Semitrailers;
 
@@ -17,10 +18,7 @@ namespace TransportCompanyLib.Models.Factories.SemitrailerFactories
             foreach (XmlNode product in xmlNode[nameof(RefrigeratorSemitrailer.SemitrailerProducts)].ChildNodes)
             {
                 Type productType = Type.GetType(product.Name);
-                float productWeight = float.Parse(product[nameof(NeedColdProductBase.WeightPerProduct)].InnerText);
-                float lowerTemperature = float.Parse(product[nameof(NeedColdProductBase.LowerTemperature)].InnerText);
-                float highTemperature = float.Parse(product[nameof(NeedColdProductBase.HigherTemperature)].InnerText);
-                refrigeratorSemitrailer.Load(Activator.CreateInstance(productType, productWeight, lowerTemperature, highTemperature) as NeedColdProductBase, 1);
+                refrigeratorSemitrailer.Load(FactoriesConfiguration.ProductsFactories[productType].Create(product), 1);
             }
 
             return refrigeratorSemitrailer;

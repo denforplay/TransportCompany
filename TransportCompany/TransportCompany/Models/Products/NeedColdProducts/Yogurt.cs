@@ -2,7 +2,7 @@
 {
     public class Yogurt : NeedColdProductBase
     {
-        public Yogurt(float weightPerProduct, float lowerTemperature, float highTemperature) : base(weightPerProduct, lowerTemperature, highTemperature)
+        public Yogurt(float weightPerProduct, float volumePerProduct, float lowerTemperature, float highTemperature) : base(weightPerProduct, volumePerProduct, lowerTemperature, highTemperature)
         {
         }
     }

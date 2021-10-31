@@ -8,16 +8,21 @@ namespace TransportCompanyLib.Models.Products
     public abstract class ProductBase
     {
         public float WeightPerProduct { get; private set; }
+        public float VolumePerProduct { get; private set; }
 
-        public ProductBase() { }
-
-        public ProductBase(float weightPerProduct)
+        public ProductBase(float weightPerProduct, float volumePerProduct)
         {
             if (weightPerProduct <= 0)
             {
                 throw new ArgumentOutOfRangeException(nameof(weightPerProduct), "Product weight must be more than zero");
             }
 
+            if (volumePerProduct <= 0)
+            {
+                throw new ArgumentOutOfRangeException(nameof(volumePerProduct), "Product volume must be more then zero");
+            }
+
+            VolumePerProduct = volumePerProduct;
             WeightPerProduct = weightPerProduct;
         }
 

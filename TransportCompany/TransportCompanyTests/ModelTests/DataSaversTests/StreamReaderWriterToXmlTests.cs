@@ -20,7 +20,7 @@ namespace TransportCompanyTests.ModelTests.DataSaversTests
         [Fact]
         public void TestWritingReadingDieselFuelDataInXml()
         {
-            DieselFuel expectedFuel = new DieselFuel(4);
+            DieselFuel expectedFuel = new DieselFuel(4, 4);
             var writerToXml = new XmlSaveLoader<DieselFuel>(new StreamReaderXmlLoader<DieselFuel>(), new StreamWriterToXml<DieselFuel>(), new FromXmlLiquidFactory<DieselFuel>());
             writerToXml.Save(expectedFuel);
             DieselFuel actualFuel = writerToXml.Load();
@@ -30,7 +30,7 @@ namespace TransportCompanyTests.ModelTests.DataSaversTests
         [Fact]
         public void TestWritingReadingOctane_Pertol95DataInXml()
         {
-            OctanePetrol_95 expectedFuel = new OctanePetrol_95(5);
+            OctanePetrol_95 expectedFuel = new OctanePetrol_95(5.5f, 1.5f);
             var writerToXml = new XmlSaveLoader<OctanePetrol_95>(new StreamReaderXmlLoader<OctanePetrol_95>(), new StreamWriterToXml<OctanePetrol_95>(), new FromXmlLiquidFactory<OctanePetrol_95>());
             writerToXml.Save(expectedFuel);
             OctanePetrol_95 actualFuel = writerToXml.Load();
@@ -41,7 +41,7 @@ namespace TransportCompanyTests.ModelTests.DataSaversTests
         [Fact]
         public void TestWritingReadingNeedFrozeProductDataInXml()
         {
-            Milk expectedProduct = new Milk(5, -10, 5);
+            Milk expectedProduct = new Milk(5, 2.5f, -10, 5);
             var writerToXml = new XmlSaveLoader<Milk>(new StreamReaderXmlLoader<Milk>(), new StreamWriterToXml<Milk>(), new FromXmlNeedFrozenProductFactory<Milk>());
             writerToXml.Save(expectedProduct);
             Milk actualProduct = writerToXml.Load();
@@ -52,7 +52,7 @@ namespace TransportCompanyTests.ModelTests.DataSaversTests
         public void TestWritingReadingTankSemitrailertDataInXml()
         {
             TankSemitrailer expectedSemitrailer = new TankSemitrailer(500);
-            expectedSemitrailer.Load(new OctanePetrol_95(1), 5);
+            expectedSemitrailer.Load(new OctanePetrol_95(1, 1), 5);
             var writerToXml = new XmlSaveLoader<TankSemitrailer>(new StreamReaderXmlLoader<TankSemitrailer>(), new StreamWriterToXml<TankSemitrailer>(), new FromXmlTankSemitrailerFactory());
             writerToXml.Save(expectedSemitrailer);
             TankSemitrailer actualSemitrailer = writerToXml.Load();
@@ -63,7 +63,7 @@ namespace TransportCompanyTests.ModelTests.DataSaversTests
         public void TestWritingRefrigeratorSemitrailertDataInXml()
         {
             RefrigeratorSemitrailer expectedSemitrailer = new RefrigeratorSemitrailer(500, -5, 5);
-            expectedSemitrailer.Load(new Yogurt(1, -4, 4), 10);
+            expectedSemitrailer.Load(new Yogurt(1, 1, -4, 4), 10);
             var writerToXml = new XmlSaveLoader<RefrigeratorSemitrailer>(new StreamReaderXmlLoader<RefrigeratorSemitrailer>(), new StreamWriterToXml<RefrigeratorSemitrailer>(), new FromXmlRefrigeratorSemitrailerFactory());
             writerToXml.Save(expectedSemitrailer);
             RefrigeratorSemitrailer actualSemitrailer = writerToXml.Load();
@@ -75,7 +75,7 @@ namespace TransportCompanyTests.ModelTests.DataSaversTests
         {
             MANTractor expectedTractor = new MANTractor(100);
             RefrigeratorSemitrailer expectedSemitrailer = new RefrigeratorSemitrailer(100, -5, 5);
-            expectedSemitrailer.Load(new Yogurt(1, -4, 4), 10);
+            expectedSemitrailer.Load(new Yogurt(1, 1, -4, 4), 10);
             expectedTractor.ConnectSemitrailer(expectedSemitrailer);
             var serializer = new XmlSaveLoader<MANTractor>(new StreamReaderXmlLoader<MANTractor>(), new StreamWriterToXml<MANTractor>(), new FromXmlTractorFactory<MANTractor>());
             serializer.Save(expectedTractor);
@@ -88,7 +88,7 @@ namespace TransportCompanyTests.ModelTests.DataSaversTests
         {
             Autopark expectedAutopark = new Autopark();
             RefrigeratorSemitrailer expectedSemitrailer = new RefrigeratorSemitrailer(100, -5, 5);
-            expectedSemitrailer.Load(new Yogurt(1, -4, 4), 10);
+            expectedSemitrailer.Load(new Yogurt(1, 1, -4, 4), 10);
             expectedAutopark.AddSemitrailer(expectedSemitrailer);
             var serializer = new XmlSaveLoader<Autopark>(new StreamReaderXmlLoader<Autopark>(), new StreamWriterToXml<Autopark>(), new AutoparkFromXmlFactory());
             serializer.Save(expectedAutopark);

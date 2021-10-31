@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Xml;
+using TransportCompanyLib.Models.Configurations;
 using TransportCompanyLib.Models.Products.FuelProducts;
 using TransportCompanyLib.Models.Semitrailers;
 
@@ -14,8 +15,7 @@ namespace TransportCompanyLib.Models.Factories.SemitrailerFactories
             foreach (XmlNode product in xmlNode[nameof(TankSemitrailer.SemitrailerProducts)].ChildNodes)
             {
                 Type productType = Type.GetType(product.Name);
-                float productWeight = float.Parse(product[nameof(LiquidProductBase.WeightPerProduct)].InnerText);
-                tankSemitrailer.Load(Activator.CreateInstance(productType, productWeight) as LiquidProductBase, 1);
+                tankSemitrailer.Load(FactoriesConfiguration.ProductsFactories[productType].Create(product), 1);
             }
 
             return tankSemitrailer;

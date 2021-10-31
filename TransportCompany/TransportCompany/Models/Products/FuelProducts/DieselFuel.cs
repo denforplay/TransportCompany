@@ -2,7 +2,7 @@
 {
     public sealed class DieselFuel : LiquidProductBase
     {
-        public DieselFuel(float weightPerProduct) : base(weightPerProduct)
+        public DieselFuel(float weightPerProduct, float volumePerProduct) : base(weightPerProduct, volumePerProduct)
         {
         }
     }

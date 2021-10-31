@@ -2,7 +2,7 @@
 {
     public sealed class OctanePetrol_95 : LiquidProductBase
     {
-        public OctanePetrol_95(float weightPerProduct) : base(weightPerProduct)
+        public OctanePetrol_95(float weightPerProduct, float volumePerProduct) : base(weightPerProduct, volumePerProduct)
         {
         }
     }
