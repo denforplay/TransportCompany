@@ -8,9 +8,9 @@ namespace TransportCompanyLib.Models.Factories.ProductFactories
     {
         public T Create(XmlNode xmlNode)
         {
-            float productWeight = float.Parse(xmlNode["WeightPerProduct"].InnerText);
-            float lowerTemperature = float.Parse(xmlNode["LowerTemperature"].InnerText);
-            float higherTemperature = float.Parse(xmlNode["HigherTemperature"].InnerText);
+            float productWeight = float.Parse(xmlNode[nameof(NeedColdProductBase.WeightPerProduct)].InnerText);
+            float lowerTemperature = float.Parse(xmlNode[nameof(NeedColdProductBase.LowerTemperature)].InnerText);
+            float higherTemperature = float.Parse(xmlNode[nameof(NeedColdProductBase.HigherTemperature)].InnerText);
             T needFrozeProduct = (T)Activator.CreateInstance(typeof(T), productWeight, lowerTemperature, higherTemperature);
             return needFrozeProduct;
         }

@@ -1,4 +1,5 @@
 ﻿using System.Collections;
+using System.Linq;
 using System.Reflection;
 using System.Text;
 
@@ -23,27 +24,30 @@ namespace XmlDataWorker.Models.DataSavers
         private void Read(StringBuilder xmlBuilder, PropertyInfo currentProperty, object currentObject, string tabulation)
         {
             IEnumerable list = null;
-            xmlBuilder.AppendLine($"\t{tabulation}<{currentProperty.Name}>");
+            xmlBuilder.Append($"\t{tabulation}<{currentProperty.Name}>");
             if (currentProperty.PropertyType.FullName.Contains("Collection"))
                 list = currentProperty.GetValue(currentObject) as IEnumerable;
             if (list is not null)
             {
                 foreach (var listElem in list)
                 {
-                    xmlBuilder.AppendLine($"\t\t{tabulation}<{listElem.GetType().FullName}>");
+                    xmlBuilder.AppendLine($"\n\t\t{tabulation}<{listElem.GetType().FullName}>");
                     foreach (var listElemProperty in listElem.GetType().GetProperties())
                     {
                         Read(xmlBuilder, listElemProperty, listElem, tabulation + "\t\t");
                     }
-                    xmlBuilder.AppendLine($"\t\t{tabulation}</{listElem.GetType().FullName}>");
+
+                    xmlBuilder.Append($"\t\t{tabulation}</{listElem.GetType().FullName}>");
                 }
+
+                xmlBuilder.Append($"\n\t{tabulation}");
             }
             else
             {
                 var length = currentProperty.PropertyType.GetProperties().Length;
                 if (length == 0)
                 {
-                    xmlBuilder.AppendLine($"\t{tabulation}{currentProperty.GetValue(currentObject)}");
+                    xmlBuilder.Append($"{currentProperty.GetValue(currentObject)}");
                 }
                 else
                 {
@@ -55,7 +59,7 @@ namespace XmlDataWorker.Models.DataSavers
                 }
             }
 
-            xmlBuilder.AppendLine($"\t{tabulation}</{currentProperty.Name}>");
+            xmlBuilder.AppendLine($"</{currentProperty.Name}>");
         }
     }
 }

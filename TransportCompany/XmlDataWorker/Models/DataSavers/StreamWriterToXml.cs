@@ -14,7 +14,7 @@ namespace XmlDataWorker.Models.DataSavers
         {
             StringBuilder xmlBuilder = ConvertToXml(objectToSave);
 
-            using (StreamWriter sw = new StreamWriter(File.Create(filePath)))
+            using (StreamWriter sw = new StreamWriter(File.Create(filePath), Encoding.UTF8))
             {
                 sw.Write(xmlBuilder);
             }

@@ -1,5 +1,6 @@
 ﻿using System.Text;
 using System.Xml;
+using System.Xml.Linq;
 
 namespace XmlDataWorker.Models.DataSavers
 {
@@ -8,8 +9,14 @@ namespace XmlDataWorker.Models.DataSavers
         public override void SaveData(T objectToSave, string filePath)
         {
             StringBuilder xmlBuilder = ConvertToXml(objectToSave);
-            using (XmlWriter xw = XmlWriter.Create(filePath))
+            XmlDocument xmlDoc = new XmlDocument();
+            xmlDoc.LoadXml(xmlBuilder.ToString());
+            var settings = new XmlWriterSettings();
+            settings.Indent = true;
+            settings.IndentChars = "\t   ";
+            using (var xmlWriter = XmlWriter.Create(filePath, settings))
             {
+                xmlDoc.Save(xmlWriter);
             }
         }
     }
