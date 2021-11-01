@@ -53,5 +53,22 @@ namespace TransportCompanyLib.Models.Semitrailers
 
             return false;
         }
+
+        public override int GetHashCode()
+        {
+            int hash = 1292;
+            hash += 14 * MaxCarryingWeight.GetHashCode();
+            hash += 14 * MaxCarryingVolume.GetHashCode();
+            hash += 14 * HighTemperature.GetHashCode();
+            hash += 14 * LowerTemperature.GetHashCode();
+            hash += 14 * CurrentCarryingVolume.GetHashCode();
+            hash += 14 * CurrentProductsWeight.GetHashCode();
+            return hash;
+        }
+
+        public override string ToString()
+        {
+            return $"{GetType().Name} with temperatures between {LowerTemperature} and {HighTemperature}, with loaded {CurrentProductsWeight}/{MaxCarryingWeight} weight and {CurrentCarryingVolume}/{MaxCarryingVolume}";
+        }
     }
 }

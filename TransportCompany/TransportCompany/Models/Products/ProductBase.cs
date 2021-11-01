@@ -30,7 +30,9 @@ namespace TransportCompanyLib.Models.Products
         {
             if (obj is ProductBase product)
             {
-                return GetType().Name == product.GetType().Name && WeightPerProduct == product.WeightPerProduct;
+                return GetType().Name == product.GetType().Name 
+                    && WeightPerProduct == product.WeightPerProduct
+                    && VolumePerProduct == product.VolumePerProduct;
             }
 
             return false;
@@ -39,6 +41,7 @@ namespace TransportCompanyLib.Models.Products
         public override int GetHashCode()
         {
             int hash = 12 * WeightPerProduct.GetHashCode();
+            hash += 12 * VolumePerProduct.GetHashCode();
             return hash;
         }
 

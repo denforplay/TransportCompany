@@ -77,5 +77,10 @@ namespace TransportCompanyLib.Models.Semitrailers
             hash += SemitrailerProducts.Sum(x => x.GetHashCode() * 3);
             return hash;
         }
+
+        public override string ToString()
+        {
+            return $"{GetType().Name} with loaded {CurrentProductsWeight}/{MaxCarryingWeight} weight and {CurrentCarryingVolume}/{MaxCarryingVolume}";
+        }
     }
 }

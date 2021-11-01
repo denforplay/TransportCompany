@@ -37,10 +37,26 @@ namespace TransportCompanyLib.Models.SemitrailerTractors
             if (obj is SemitrailerTractorBase otherTractor)
             {
                 return otherTractor.MaxSemitrailerWeight == MaxSemitrailerWeight
-                    && this.GetType() == otherTractor.GetType();
+                    && this.GetType() == otherTractor.GetType()
+                    && Semitrailer.Equals(otherTractor.Semitrailer);
             }
 
             return false;
+        }
+
+        public override int GetHashCode()
+        {
+            int hash = 1222;
+            hash += 7 * MaxSemitrailerWeight.GetHashCode();
+            hash += 7 * Semitrailer.GetHashCode();
+            return hash;
+        }
+
+        public override string ToString()
+        {
+            return $"Tractor type: {GetType().Name}\n" +
+                $"Connected semitrailer: {Semitrailer}\n" +
+                $"Max semitrailer weight: {MaxSemitrailerWeight}";
         }
     }
 }
