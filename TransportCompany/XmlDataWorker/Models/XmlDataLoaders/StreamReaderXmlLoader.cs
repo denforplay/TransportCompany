@@ -1,12 +1,9 @@
-﻿using System;
-using System.IO;
-using System.Linq;
-using System.Reflection;
+﻿using System.IO;
 using System.Xml;
 
 namespace XmlDataWorker.Models.DataLoaders
 {
-    public sealed class StreamReaderXmlLoader<T> : XmlLoaderBase<T> where T : class
+    public sealed class StreamReaderLoader<T> : XmlLoaderBase<T> where T : class
     {
         public override XmlDocument LoadData(string path)
         {
