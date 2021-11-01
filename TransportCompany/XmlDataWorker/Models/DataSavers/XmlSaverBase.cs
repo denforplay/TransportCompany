@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Linq;
 using System.Reflection;
 using System.Text;
@@ -23,10 +24,16 @@ namespace XmlDataWorker.Models.DataSavers
 
         private void Read(StringBuilder xmlBuilder, PropertyInfo currentProperty, object currentObject, string tabulation)
         {
+
             IEnumerable list = null;
-            xmlBuilder.Append($"\t{tabulation}<{currentProperty.Name}>");
             if (currentProperty.PropertyType.FullName.Contains("Collection"))
                 list = currentProperty.GetValue(currentObject) as IEnumerable;
+
+            if (currentProperty.PropertyType.IsValueType || list is not null)
+                xmlBuilder.Append($"\t{tabulation}<{currentProperty.Name}>");
+            else
+                xmlBuilder.Append($"\t{tabulation}<{currentProperty.Name} {nameof(Type)}='{currentProperty.GetValue(currentObject).GetType().FullName}'>");
+           
             if (list is not null)
             {
                 foreach (var listElem in list)
@@ -56,7 +63,7 @@ namespace XmlDataWorker.Models.DataSavers
                     if (innerObject is not null)
                     {
                         xmlBuilder.AppendLine();
-                        foreach (var innerProperty in currentProperty.PropertyType.GetProperties())
+                        foreach (var innerProperty in innerObject.GetType().GetProperties())
                         {
                             Read(xmlBuilder, innerProperty, innerObject, tabulation + "\t");
                         }

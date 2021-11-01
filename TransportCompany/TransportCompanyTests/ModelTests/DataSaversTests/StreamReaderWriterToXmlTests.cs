@@ -92,6 +92,7 @@ namespace TransportCompanyTests.ModelTests.DataSaversTests
             expectedAutopark.AddSemitrailer(expectedSemitrailer);
             MANTractor tractor1 = new MANTractor(1000);
             expectedAutopark.AddTractor(tractor1);
+            tractor1.ConnectSemitrailer(expectedSemitrailer);
             var serializer = new XmlSaveLoader<Autopark>(new StreamReaderXmlLoader<Autopark>(), new StreamWriterToXml<Autopark>(), new AutoparkFromXmlFactory());
             serializer.Save(expectedAutopark);
             Autopark actualAutopark = serializer.Load();

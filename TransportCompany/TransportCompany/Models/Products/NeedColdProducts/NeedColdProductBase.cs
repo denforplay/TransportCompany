@@ -17,5 +17,20 @@ namespace TransportCompanyLib.Models.Products.NeedColdProducts
             LowerTemperature = lowerTemperature;
             HigherTemperature = highTemperature;
         }
+
+        public override bool Equals(object obj)
+        {
+            if (obj is NeedColdProductBase product)
+            {
+                return GetType().Name == product.GetType().Name
+                    && WeightPerProduct == product.WeightPerProduct
+                    && VolumePerProduct == product.VolumePerProduct
+                    && LowerTemperature == product.LowerTemperature
+                    && HigherTemperature == product.HigherTemperature;
+            }
+
+            return false;
+        }
+
     }
 }
