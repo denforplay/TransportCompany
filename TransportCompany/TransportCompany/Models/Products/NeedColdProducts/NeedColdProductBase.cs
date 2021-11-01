@@ -18,6 +18,11 @@ namespace TransportCompanyLib.Models.Products.NeedColdProducts
             HigherTemperature = highTemperature;
         }
 
+        /// <summary>
+        /// Determines whether two object instances are equal
+        /// </summary>
+        /// <param name="obj">Object to check</param>
+        /// <returns>Returns true if object are equals, other returns not</returns>
         public override bool Equals(object obj)
         {
             if (obj is NeedColdProductBase product)
@@ -32,5 +37,18 @@ namespace TransportCompanyLib.Models.Products.NeedColdProducts
             return false;
         }
 
+        /// <summary>
+        /// Serves as the default hash function.
+        /// </summary>
+        /// <returns>A hash code for the current object</returns>
+        public override int GetHashCode()
+        {
+            int hash = 123;
+            hash += WeightPerProduct.GetHashCode();
+            hash += VolumePerProduct.GetHashCode();
+            hash += LowerTemperature.GetHashCode();
+            hash += HigherTemperature.GetHashCode();
+            return hash;
+        }
     }
 }

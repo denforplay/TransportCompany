@@ -6,9 +6,14 @@ namespace TransportCompanyLib.Models.Factories.AutoparkFactory
 {
     public sealed class AutoparkFromXmlFactory : IFromXmlFactory<Autopark>
     {
+        /// <summary>
+        /// Create instance of autopark from xml data
+        /// </summary>
+        /// <param name="xmlNode">Xml data from which create autopark</param>
+        /// <returns>Instance of autopark</returns>
         public Autopark Create(XmlNode xmlNode)
         {
-            Autopark autopark = new Autopark();
+            Autopark autopark = new();
             foreach(XmlNode semitrailer in xmlNode[nameof(Autopark.Semitrailers)].ChildNodes)
             {
                 autopark.AddSemitrailer(FactoriesConfiguration.SemitrailerFactories[Type.GetType(semitrailer.Name)].Create(semitrailer));
@@ -18,6 +23,7 @@ namespace TransportCompanyLib.Models.Factories.AutoparkFactory
             {
                 autopark.AddTractor(FactoriesConfiguration.TractorsFactories[Type.GetType(tractor.Name)].Create(tractor));
             }
+
             return autopark;
         }
     }

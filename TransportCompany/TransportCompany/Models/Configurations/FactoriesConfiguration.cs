@@ -12,8 +12,14 @@ using TransportCompanyLib.Models.SemitrailerTractors;
 
 namespace TransportCompanyLib.Models.Configurations
 {
+    /// <summary>
+    /// Factories configuration
+    /// </summary>
     public static class FactoriesConfiguration
     {
+        /// <summary>
+        /// Product factories
+        /// </summary>
         public static Dictionary<Type, IFromXmlFactory<ProductBase>> ProductsFactories = new()
         {
             { typeof(DieselFuel), new FromXmlLiquidFactory<DieselFuel>() },
@@ -23,12 +29,18 @@ namespace TransportCompanyLib.Models.Configurations
             { typeof(Yogurt), new FromXmlNeedFrozenProductFactory<Yogurt>() },
         };
 
+        /// <summary>
+        /// Semitrailer products
+        /// </summary>
         public static Dictionary<Type, IFromXmlFactory<SemitrailerBase>> SemitrailerFactories = new()
         {
             { typeof(RefrigeratorSemitrailer), new FromXmlRefrigeratorSemitrailerFactory() },
             { typeof(TankSemitrailer), new FromXmlTankSemitrailerFactory() },
         };
 
+        /// <summary>
+        /// Tractors factories
+        /// </summary>
         public static Dictionary<Type, IFromXmlFactory<SemitrailerTractorBase>> TractorsFactories = new()
         {
             { typeof(MANTractor), new FromXmlTractorFactory<MANTractor>() },

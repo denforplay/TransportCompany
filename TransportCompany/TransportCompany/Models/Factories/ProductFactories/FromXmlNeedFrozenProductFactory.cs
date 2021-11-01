@@ -6,6 +6,11 @@ namespace TransportCompanyLib.Models.Factories.ProductFactories
 {
     public sealed class FromXmlNeedFrozenProductFactory<T> : IFromXmlFactory<T> where T : NeedColdProductBase
     {
+        /// <summary>
+        /// Returns instance of need froze product from xml data
+        /// </summary>
+        /// <param name="xmlNode">Xml data from which create product</param>
+        /// <returns>Instance of need froze product</returns>
         public T Create(XmlNode xmlNode)
         {
             float productWeight = float.Parse(xmlNode[nameof(NeedColdProductBase.WeightPerProduct)].InnerText);

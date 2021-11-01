@@ -7,6 +7,13 @@ namespace TransportCompanyLib.Models.Semitrailers
 {
     public class RefrigeratorSemitrailer : SemitrailerBase
     {
+        /// <summary>
+        /// Refrigerator semitrailer constructor
+        /// </summary>
+        /// <param name="maxCarryingWeight">Max carrying refrigerator semitrailer weight</param>
+        /// <param name="maxCarryingVolume">Max carrying semitrailer volume</param>
+        /// <param name="lowerTemperature">Low limit temperature in semitrailer</param>
+        /// <param name="highTemperature">High limit temperature in semitrailer</param>
         public RefrigeratorSemitrailer(float maxCarryingWeight, float maxCarryingVolume, float lowerTemperature, float highTemperature) : base(maxCarryingWeight, maxCarryingVolume)
         {
             if (highTemperature <= lowerTemperature)
@@ -18,7 +25,14 @@ namespace TransportCompanyLib.Models.Semitrailers
             HighTemperature = highTemperature;
         }
 
+        /// <summary>
+        /// Low temperature limit
+        /// </summary>
         public float LowerTemperature { get; private set; }
+
+        /// <summary>
+        /// HIgh temperature limit
+        /// </summary>
         public float HighTemperature { get; private set; }
 
         public override void Load(ProductBase product, int count)
@@ -46,7 +60,7 @@ namespace TransportCompanyLib.Models.Semitrailers
             if (obj is RefrigeratorSemitrailer semitrailer)
             {
                 return semitrailer.MaxCarryingWeight == this.MaxCarryingWeight
-                       && semitrailer.SemitrailerProducts.Except(SemitrailerProducts).Count() == 0
+                       && !semitrailer.SemitrailerProducts.Except(SemitrailerProducts).Any()
                        && semitrailer.LowerTemperature == this.LowerTemperature
                        && semitrailer.HighTemperature == this.HighTemperature;
             }

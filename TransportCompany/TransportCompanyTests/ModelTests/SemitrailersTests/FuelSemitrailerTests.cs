@@ -10,7 +10,8 @@ namespace TransportCompanyTests.ModelTests.SemitrailersTests
         [Fact]
         public void CreateFuelSemitrailer_MaxWeightLessThanZero_ThrowsArgumentException()
         {
-            Assert.Throws<ArgumentOutOfRangeException>(() => new TankSemitrailer(-10, 10));
+            Assert.Throws<ArgumentOutOfRangeException
+                >(() => new TankSemitrailer(-10, 10));
         }
 
         [Fact]

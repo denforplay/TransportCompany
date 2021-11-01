@@ -7,9 +7,21 @@ namespace TransportCompanyLib.Models.Products
     /// </summary>
     public abstract class ProductBase
     {
+        /// <summary>
+        /// Product weight
+        /// </summary>
         public float WeightPerProduct { get; private set; }
+
+        /// <summary>
+        /// Product volume
+        /// </summary>
         public float VolumePerProduct { get; private set; }
 
+        /// <summary>
+        /// Product constructor
+        /// </summary>
+        /// <param name="weightPerProduct">Product weight</param>
+        /// <param name="volumePerProduct">Product volume</param>
         public ProductBase(float weightPerProduct, float volumePerProduct)
         {
             if (weightPerProduct <= 0)
@@ -26,6 +38,11 @@ namespace TransportCompanyLib.Models.Products
             WeightPerProduct = weightPerProduct;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="obj"></param>
+        /// <returns></returns>
         public override bool Equals(object obj)
         {
             if (obj is ProductBase product)
@@ -38,6 +55,10 @@ namespace TransportCompanyLib.Models.Products
             return false;
         }
 
+        /// <summary>
+        /// Serves as the default hash function.
+        /// </summary>
+        /// <returns>A hash code for the current object</returns>
         public override int GetHashCode()
         {
             int hash = 12 * WeightPerProduct.GetHashCode();
@@ -45,6 +66,10 @@ namespace TransportCompanyLib.Models.Products
             return hash;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
         public override string ToString()
         {
             return $"{GetType().Name} with weight {WeightPerProduct}";
