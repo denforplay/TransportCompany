@@ -2,7 +2,7 @@
 using TransportCompanyLib.Models.Products.NeedColdProducts;
 using Xunit;
 
-namespace ProductsLib.ModelTests.ProductsTests
+namespace TransportCompanyTests.ProductsTests
 {
     public class ColdProductsTests
     {

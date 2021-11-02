@@ -18,7 +18,7 @@ namespace TransportCompanyTests.ModelTests.DataSaversTests
         public void TestWritingReadingDieselFuelDataInXml()
         {
             DieselFuel expectedFuel = new DieselFuel(4, 4);
-            var writerToXml = new XmlSaveLoader<DieselFuel>(new XmlReaderLoader<DieselFuel>(), new XmlWriterToXml<DieselFuel>(), new FromXmlLiquidFactory<DieselFuel>());
+            var writerToXml = new XmlSaveLoader<DieselFuel>(new XmlReaderLoader(), new XmlWriterToXml<DieselFuel>(), new FromXmlLiquidFactory<DieselFuel>());
             writerToXml.Save(expectedFuel);
             DieselFuel actualFuel = writerToXml.Load();
             Assert.Equal(expectedFuel, actualFuel);
@@ -28,7 +28,7 @@ namespace TransportCompanyTests.ModelTests.DataSaversTests
         public void TestWritingReadingOctane_Pertol95DataInXml()
         {
             OctanePetrol_95 expectedFuel = new OctanePetrol_95(5.5f, 1.5f);
-            var writerToXml = new XmlSaveLoader<OctanePetrol_95>(new XmlReaderLoader<OctanePetrol_95>(), new XmlWriterToXml<OctanePetrol_95>(), new FromXmlLiquidFactory<OctanePetrol_95>());
+            var writerToXml = new XmlSaveLoader<OctanePetrol_95>(new XmlReaderLoader(), new XmlWriterToXml<OctanePetrol_95>(), new FromXmlLiquidFactory<OctanePetrol_95>());
             writerToXml.Save(expectedFuel);
             OctanePetrol_95 actualFuel = writerToXml.Load();
             Assert.Equal(expectedFuel, actualFuel);
@@ -39,7 +39,7 @@ namespace TransportCompanyTests.ModelTests.DataSaversTests
         public void TestWritingReadingNeedFrozeProductDataInXml()
         {
             Milk expectedProduct = new Milk(5, 2.5f, -10, 5);
-            var writerToXml = new XmlSaveLoader<Milk>(new XmlReaderLoader<Milk>(), new XmlWriterToXml<Milk>(), new FromXmlNeedFrozenProductFactory<Milk>());
+            var writerToXml = new XmlSaveLoader<Milk>(new XmlReaderLoader(), new XmlWriterToXml<Milk>(), new FromXmlNeedFrozenProductFactory<Milk>());
             writerToXml.Save(expectedProduct);
             Milk actualProduct = writerToXml.Load();
             Assert.Equal(expectedProduct, actualProduct);
@@ -50,7 +50,7 @@ namespace TransportCompanyTests.ModelTests.DataSaversTests
         {
             TankSemitrailer expectedSemitrailer = new TankSemitrailer(500, 250);
             expectedSemitrailer.Load(new OctanePetrol_95(1, 1), 5);
-            var writerToXml = new XmlSaveLoader<TankSemitrailer>(new XmlReaderLoader<TankSemitrailer>(), new XmlWriterToXml<TankSemitrailer>(), new FromXmlTankSemitrailerFactory());
+            var writerToXml = new XmlSaveLoader<TankSemitrailer>(new XmlReaderLoader(), new XmlWriterToXml<TankSemitrailer>(), new FromXmlTankSemitrailerFactory());
             writerToXml.Save(expectedSemitrailer);
             TankSemitrailer actualSemitrailer = writerToXml.Load();
             Assert.True(expectedSemitrailer.Equals(actualSemitrailer));
@@ -61,7 +61,7 @@ namespace TransportCompanyTests.ModelTests.DataSaversTests
         {
             RefrigeratorSemitrailer expectedSemitrailer = new RefrigeratorSemitrailer(500, 1000, -5, 5);
             expectedSemitrailer.Load(new Yogurt(1, 1, -4, 4), 10);
-            var writerToXml = new XmlSaveLoader<RefrigeratorSemitrailer>(new XmlReaderLoader<RefrigeratorSemitrailer>(), new XmlWriterToXml<RefrigeratorSemitrailer>(), new FromXmlRefrigeratorSemitrailerFactory());
+            var writerToXml = new XmlSaveLoader<RefrigeratorSemitrailer>(new XmlReaderLoader(), new XmlWriterToXml<RefrigeratorSemitrailer>(), new FromXmlRefrigeratorSemitrailerFactory());
             writerToXml.Save(expectedSemitrailer);
             RefrigeratorSemitrailer actualSemitrailer = writerToXml.Load();
             Assert.True(expectedSemitrailer.Equals(actualSemitrailer));
@@ -74,7 +74,7 @@ namespace TransportCompanyTests.ModelTests.DataSaversTests
             RefrigeratorSemitrailer expectedSemitrailer = new RefrigeratorSemitrailer(100, 250, -5, 5);
             expectedSemitrailer.Load(new Yogurt(1, 1, -4, 4), 10);
             expectedTractor.ConnectSemitrailer(expectedSemitrailer);
-            var serializer = new XmlSaveLoader<MANTractor>(new XmlReaderLoader<MANTractor>(), new XmlWriterToXml<MANTractor>(), new FromXmlTractorFactory<MANTractor>());
+            var serializer = new XmlSaveLoader<MANTractor>(new XmlReaderLoader(), new XmlWriterToXml<MANTractor>(), new FromXmlTractorFactory<MANTractor>());
             serializer.Save(expectedTractor);
             MANTractor realTractor = serializer.Load();
             Assert.True(expectedTractor.Equals(realTractor));

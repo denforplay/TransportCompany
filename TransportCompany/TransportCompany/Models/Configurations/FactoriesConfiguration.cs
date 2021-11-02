@@ -15,7 +15,7 @@ namespace TransportCompanyLib.Models.Configurations
     /// <summary>
     /// Factories configuration
     /// </summary>
-    public static class FactoriesConfiguration
+    internal static class FactoriesConfiguration
     {
         /// <summary>
         /// Product factories
@@ -30,7 +30,7 @@ namespace TransportCompanyLib.Models.Configurations
         };
 
         /// <summary>
-        /// Semitrailer products
+        /// Semitrailer factories
         /// </summary>
         public static Dictionary<Type, IFromXmlFactory<SemitrailerBase>> SemitrailerFactories = new()
         {

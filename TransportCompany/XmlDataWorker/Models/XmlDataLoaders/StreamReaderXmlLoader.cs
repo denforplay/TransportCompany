@@ -3,7 +3,10 @@ using System.Xml;
 
 namespace XmlDataWorker.Models.DataLoaders
 {
-    public sealed class StreamReaderLoader<T> : XmlLoaderBase<T> where T : class
+    /// <summary>
+    /// Class provides functionality to load xml data using stream reader
+    /// </summary>
+    public sealed class StreamReaderLoader : XmlLoaderBase
     {
         public override XmlDocument LoadData(string path)
         {

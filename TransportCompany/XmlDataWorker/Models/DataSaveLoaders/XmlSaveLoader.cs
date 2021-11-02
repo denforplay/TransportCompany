@@ -5,25 +5,43 @@ using XmlDataWorker.Models.DataSavers;
 
 namespace XmlDataWorker.Models.DataSaveLoaders
 {
+    /// <summary>
+    /// Xml save loader
+    /// </summary>
+    /// <typeparam name="T">Type of reading or writing object</typeparam>
     public sealed class XmlSaveLoader<T> where T : class
     {
         private string FILE_PATH = Directory.GetCurrentDirectory() + "/autopark.xml";
-        private XmlLoaderBase<T> _dataLoader;
+        private XmlLoaderBase _dataLoader;
         private XmlSaverBase<T> _dataSaver;
         private IFromXmlFactory<T> _xmlFactory;
 
-        public XmlSaveLoader(XmlLoaderBase<T> dataLoader, XmlSaverBase<T> dataSaver, IFromXmlFactory<T> fromXmlFactory)
+        /// <summary>
+        /// Xml save loader constructor
+        /// </summary>
+        /// <param name="dataLoader">Xml data loader</param>
+        /// <param name="dataSaver">Xml data saver</param>
+        /// <param name="fromXmlFactory">Factory to create object from xml</param>
+        public XmlSaveLoader(XmlLoaderBase dataLoader, XmlSaverBase<T> dataSaver, IFromXmlFactory<T> fromXmlFactory)
         {
             _dataLoader = dataLoader;
             _dataSaver = dataSaver;
             _xmlFactory = fromXmlFactory;
         }
 
+        /// <summary>
+        /// Saving object in xml
+        /// </summary>
+        /// <param name="objectToSave">Object to save in xml file</param>
         public void Save(T objectToSave)
         {
             _dataSaver.SaveData(objectToSave, FILE_PATH);
         }
 
+        /// <summary>
+        /// Load object from xml
+        /// </summary>
+        /// <returns>Object of type</returns>
         public T Load()
         {
             var test = _dataLoader.LoadData(FILE_PATH);

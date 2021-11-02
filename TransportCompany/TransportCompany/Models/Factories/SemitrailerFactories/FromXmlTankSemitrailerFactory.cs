@@ -10,7 +10,6 @@ namespace TransportCompanyLib.Models.Factories.SemitrailerFactories
     /// </summary>
     public sealed class FromXmlTankSemitrailerFactory : IFromXmlFactory<TankSemitrailer>
     {
-
         /// <summary>
         /// Create instance of tank semitrailer from xml data
         /// </summary>

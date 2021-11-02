@@ -60,6 +60,14 @@ namespace TransportCompanyLib.Models
             return _semitrailers.Find(trailer => trailer.GetType() == typeof(T)) as T;
         }
 
+        public SemitrailerBase FindSemitrailerByTemplate<T>(T semitrailerTemplate) where T : SemitrailerBase
+        {
+            return Semitrailers.Find(
+                semitrailer => semitrailer.GetType() == typeof(T)
+            && semitrailer.MaxCarryingVolume == semitrailerTemplate.MaxCarryingVolume
+            && semitrailer.MaxCarryingWeight == semitrailer.MaxCarryingWeight);
+        }
+
         /// <summary>
         /// Find list of semitrailers that carry current type of product
         /// </summary>
@@ -77,6 +85,17 @@ namespace TransportCompanyLib.Models
         public List<SemitrailerTractorBase> FindAllHitchesThatCanBeLoaded()
         {
             return _semitrailerTractors.FindAll(tractor => tractor.Semitrailer != null && tractor.Semitrailer.CurrentProductsWeight < tractor.Semitrailer.MaxCarryingWeight);
+        }
+
+        /// <summary>
+        /// Find all hitches in what can be loaded products fully
+        /// </summary>
+        /// <returns>List of tractors with connected semitrailers that can be loaded fully</returns>
+        public List<SemitrailerTractorBase> FindAllHitchesThatCanBeLoadedFully()
+        {
+            return _semitrailerTractors.FindAll(tractor => tractor.Semitrailer != null
+            && tractor.Semitrailer.MaxCarryingWeight <= tractor.MaxSemitrailerWeight
+            && tractor.Semitrailer.MaxCarryingWeight != tractor.Semitrailer.CurrentProductsWeight);
         }
     }
 }

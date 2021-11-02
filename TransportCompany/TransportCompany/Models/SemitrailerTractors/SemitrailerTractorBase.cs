@@ -21,6 +21,9 @@ namespace TransportCompanyLib.Models.SemitrailerTractors
         /// </summary>
         public float MaxSemitrailerWeight => _maxSemitrailerWeight;
 
+        /// <summary>
+        /// Fuel charges
+        /// </summary>
         public abstract float FuelCharges { get; }
 
         /// <summary>
@@ -43,7 +46,7 @@ namespace TransportCompanyLib.Models.SemitrailerTractors
         /// <param name="semitrailer">Semitrailer to be connected</param>
         public void ConnectSemitrailer(SemitrailerBase semitrailer)
         {
-            if (semitrailer.MaxCarryingWeight > _maxSemitrailerWeight)
+            if (semitrailer.CurrentProductsWeight > _maxSemitrailerWeight)
             {
                 throw new ArgumentException("Semitrailer can care more than semitrailer tractor can load", nameof(semitrailer));
             }

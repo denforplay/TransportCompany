@@ -4,7 +4,10 @@ using XmlDataWorker.Models.DataLoaders;
 
 namespace XmlDataWorker.Models.XmlDataLoaders
 {
-    public sealed class XmlReaderLoader<T> : XmlLoaderBase<T> where T : class
+    /// <summary>
+    /// Class provides functionality to load xml data using xml reader
+    /// </summary>
+    public sealed class XmlReaderLoader : XmlLoaderBase
     {
         public override XmlDocument LoadData(string path)
         {
