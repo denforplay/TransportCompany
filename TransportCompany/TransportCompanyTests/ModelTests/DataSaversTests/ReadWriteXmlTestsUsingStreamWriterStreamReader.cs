@@ -59,7 +59,7 @@ namespace TransportCompanyTests.ModelTests.DataSaversTests
         }
 
         [Fact]
-        public void TestWritingRefrigeratorSemitrailertDataInXml()
+        public void TestWritingRefrigeratorSemitrailerDataInXml()
         {
             RefrigeratorSemitrailer expectedSemitrailer = new RefrigeratorSemitrailer(500, 1000, -5, 5);
             expectedSemitrailer.Load(new Yogurt(1, 1, -4, 4), 10);

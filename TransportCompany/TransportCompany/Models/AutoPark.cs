@@ -1,4 +1,6 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
+using TransportCompanyLib.Extensions;
 using TransportCompanyLib.Models.Products;
 using TransportCompanyLib.Models.Semitrailers;
 using TransportCompanyLib.Models.SemitrailerTractors;
@@ -96,6 +98,30 @@ namespace TransportCompanyLib.Models
             return _semitrailerTractors.FindAll(tractor => tractor.Semitrailer != null
             && tractor.Semitrailer.MaxCarryingWeight <= tractor.MaxSemitrailerWeight
             && tractor.Semitrailer.MaxCarryingWeight != tractor.Semitrailer.CurrentProductsWeight);
+        }
+
+        public override bool Equals(object obj)
+        {
+            if (obj is Autopark autopark)
+            {
+                return Semitrailers.IsEqual(autopark.Semitrailers)
+                    && SemitrailerTractors.IsEqual(autopark.SemitrailerTractors);
+            }
+
+            return false;
+        }
+
+        public override int GetHashCode()
+        {
+            int hash = 195;
+            hash += Semitrailers.Sum(x => x.GetHashCode());
+            hash += SemitrailerTractors.Sum(x => x.GetHashCode());
+            return hash;
+        }
+
+        public override string ToString()
+        {
+            return $"{GetType().Name}";
         }
     }
 }

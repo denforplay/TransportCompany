@@ -93,6 +93,11 @@ namespace TransportCompanyLib.Models.Semitrailers
             }
         }
 
+        public void UnloadAllProducts()
+        {
+            _semitrailerProducts.Clear();
+        }
+
         /// <summary>
         /// Determines whether two object instances are equal
         /// </summary>
