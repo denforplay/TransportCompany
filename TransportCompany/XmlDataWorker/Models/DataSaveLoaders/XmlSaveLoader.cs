@@ -1,4 +1,6 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
+using TransportCompanyLib.Exceptions;
 using TransportCompanyLib.Models.Factories;
 using XmlDataWorker.Models.DataLoaders;
 using XmlDataWorker.Models.DataSavers;
@@ -36,6 +38,9 @@ namespace XmlDataWorker.Models.DataSaveLoaders
         /// <param name="objectToSave">Object to save in xml file</param>
         public void Save(T objectToSave)
         {
+            if (objectToSave is null)
+                throw new ArgumentNullException(nameof(objectToSave));
+
             _dataSaver.SaveData(objectToSave, _filepath);
         }
 
@@ -46,7 +51,17 @@ namespace XmlDataWorker.Models.DataSaveLoaders
         public T Load()
         {
             var test = _dataLoader.LoadData(_filepath);
-            return _xmlFactory.Create(test[typeof(T).Name]);
+            T readedObject;
+            try
+            {
+                readedObject = _xmlFactory.Create(test[typeof(T).Name]);
+            }
+            catch
+            {
+                throw new WrongXmlContentException();
+            }
+
+            return readedObject;
         }
     }
 }

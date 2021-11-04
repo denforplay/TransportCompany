@@ -6,7 +6,7 @@ using TransportCompanyLib.Models.Semitrailers;
 namespace TransportCompanyLib.Models.Factories.SemitrailerFactories
 {
     /// <summary>
-    /// Tank semitrailer factory from xml
+    /// Factory to create tank semitrailer from xml
     /// </summary>
     public sealed class FromXmlTankSemitrailerFactory : IFromXmlFactory<TankSemitrailer>
     {

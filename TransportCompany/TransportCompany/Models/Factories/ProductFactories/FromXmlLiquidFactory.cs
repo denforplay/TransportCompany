@@ -5,12 +5,11 @@ using TransportCompanyLib.Models.Products.FuelProducts;
 namespace TransportCompanyLib.Models.Factories.ProductFactories
 {
     /// <summary>
-    /// Create liquid products from 
+    /// Factory to create liqiid products from xml 
     /// </summary>
     /// <typeparam name="T"></typeparam>
     public sealed class FromXmlLiquidFactory<T> : IFromXmlFactory<T> where T : LiquidProductBase
     {
-
         /// <summary>
         /// Returns instance of liquid product from xml data
         /// </summary>

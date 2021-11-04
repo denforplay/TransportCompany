@@ -5,8 +5,16 @@ using TransportCompanyLib.Models.Semitrailers;
 
 namespace TransportCompanyLib.Models.Factories.SemitrailerFactories
 {
-    public class FromXmlTiltSemitrailerFactory : IFromXmlFactory<TiltSemitrailer>
+    /// <summary>
+    /// Factory to create tilt semitrailer from xml
+    /// </summary>
+    public sealed class FromXmlTiltSemitrailerFactory : IFromXmlFactory<TiltSemitrailer>
     {
+        /// <summary>
+        /// Create instance of tank semitrailer from xml data
+        /// </summary>
+        /// <param name="xmlNode">xml data</param>
+        /// <returns>Instance of tilt semitrailer</returns>
         public TiltSemitrailer Create(XmlNode xmlNode)
         {
             float maxCarryingSemitrailerWeight = float.Parse(xmlNode[nameof(TiltSemitrailer.MaxCarryingWeight)].InnerText);

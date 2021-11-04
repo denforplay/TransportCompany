@@ -14,7 +14,7 @@ using TransportCompanyLib.Models.SemitrailerTractors;
 namespace TransportCompanyLib.Models.Configurations
 {
     /// <summary>
-    /// Factories configuration
+    /// Class container - contains dictionaries of factories
     /// </summary>
     internal static class FactoriesConfiguration
     {

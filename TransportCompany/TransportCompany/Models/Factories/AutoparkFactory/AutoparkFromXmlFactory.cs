@@ -4,6 +4,9 @@ using TransportCompanyLib.Models.Configurations;
 
 namespace TransportCompanyLib.Models.Factories.AutoparkFactory
 {
+    /// <summary>
+    /// Factory that create autopark from xml node
+    /// </summary>
     public sealed class AutoparkFromXmlFactory : IFromXmlFactory<Autopark>
     {
         /// <summary>

@@ -4,6 +4,10 @@ using TransportCompanyLib.Models.Products.NeedColdProducts;
 
 namespace TransportCompanyLib.Models.Factories.ProductFactories
 {
+    /// <summary>
+    /// Factory to create need frozen product from xml
+    /// </summary>
+    /// <typeparam name="T">Type of frozen product</typeparam>
     public sealed class FromXmlNeedFrozenProductFactory<T> : IFromXmlFactory<T> where T : NeedColdProductBase
     {
         /// <summary>

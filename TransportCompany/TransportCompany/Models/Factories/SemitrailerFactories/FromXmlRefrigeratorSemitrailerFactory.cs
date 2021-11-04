@@ -1,14 +1,12 @@
 ﻿using System;
 using System.Xml;
-using System.Xml.Serialization;
 using TransportCompanyLib.Models.Configurations;
-using TransportCompanyLib.Models.Products.NeedColdProducts;
 using TransportCompanyLib.Models.Semitrailers;
 
 namespace TransportCompanyLib.Models.Factories.SemitrailerFactories
 {
     /// <summary>
-    /// Refrigerator semitrailer factory instance
+    /// Factory to create refrigerator semitrailer from xml
     /// </summary>
     public sealed class FromXmlRefrigeratorSemitrailerFactory : IFromXmlFactory<RefrigeratorSemitrailer>
     {

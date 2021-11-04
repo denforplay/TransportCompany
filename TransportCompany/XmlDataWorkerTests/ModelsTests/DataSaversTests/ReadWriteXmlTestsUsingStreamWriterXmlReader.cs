@@ -1,4 +1,5 @@
-﻿using TransportCompanyLib.Models.Factories.ProductFactories;
+﻿using TransportCompanyLib.Exceptions;
+using TransportCompanyLib.Models.Factories.ProductFactories;
 using TransportCompanyLib.Models.Factories.SemitrailerFactories;
 using TransportCompanyLib.Models.Factories.TractorFactories;
 using TransportCompanyLib.Models.Products.FuelProducts;
@@ -16,6 +17,13 @@ namespace XmlDataWorkerTests.ModelTests.DataSaversTests
 {
     public sealed class ReadWriteXmlTestsUsingStreamWriterXmlReader
     {
+        [Fact]
+        public void TestReadingObjectDataFromWrongXml_ThrowsWrongXmlContentException()
+        {
+            var writerToXml = new XmlSaveLoader<DieselFuel>(new XmlReaderLoader(), new StreamWriterToXml<DieselFuel>(), new FromXmlLiquidFactory<DieselFuel>());
+            Assert.Throws<WrongXmlContentException>(() => writerToXml.Load());
+        }
+
         [Fact]
         public void TestWritingReadingDieselFuelDataInXml()
         {
