@@ -1,4 +1,5 @@
 ﻿using System;
+using TransportCompanyLib.Exceptions;
 using TransportCompanyLib.Models.Products.FuelProducts;
 using TransportCompanyLib.Models.Semitrailers;
 using Xunit;
@@ -10,8 +11,7 @@ namespace TransportCompanyTests.ModelTests.SemitrailersTests
         [Fact]
         public void CreateFuelSemitrailer_MaxWeightLessThanZero_ThrowsArgumentException()
         {
-            Assert.Throws<ArgumentOutOfRangeException
-                >(() => new TankSemitrailer(-10, 10));
+            Assert.Throws<ArgumentOutOfRangeException>(() => new TankSemitrailer(-10, 10));
         }
 
         [Fact]
@@ -19,7 +19,7 @@ namespace TransportCompanyTests.ModelTests.SemitrailersTests
         {
             var fuelSemitrailer = new TankSemitrailer(10, 10);
             fuelSemitrailer.Load(new OctanePetrol_95(1, 1), 2);
-            Assert.Throws<ArgumentException>(() => fuelSemitrailer.Load(new DieselFuel(1, 1), 2));
+            Assert.Throws<IncompatibleProductException>(() => fuelSemitrailer.Load(new DieselFuel(1, 1), 2));
         }
 
         [Theory]

@@ -1,4 +1,5 @@
 ﻿using System;
+using TransportCompanyLib.Exceptions;
 using TransportCompanyLib.Models.Semitrailers;
 
 namespace TransportCompanyLib.Models.SemitrailerTractors
@@ -48,7 +49,7 @@ namespace TransportCompanyLib.Models.SemitrailerTractors
         {
             if (semitrailer.CurrentProductsWeight > _maxSemitrailerWeight)
             {
-                throw new ArgumentException("Semitrailer can care more than semitrailer tractor can load", nameof(semitrailer));
+                throw new IncompatibleSemitrailerException(semitrailer.CurrentProductsWeight, _maxSemitrailerWeight);
             }
 
             _semitrailer = semitrailer;

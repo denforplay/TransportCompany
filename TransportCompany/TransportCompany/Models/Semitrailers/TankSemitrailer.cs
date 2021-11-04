@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using TransportCompanyLib.Exceptions;
 using TransportCompanyLib.Models.Products;
 using TransportCompanyLib.Models.Products.FuelProducts;
 
@@ -21,7 +22,8 @@ namespace TransportCompanyLib.Models.Semitrailers
 
         public override void Load(ProductBase product, int count)
         {
-            if (product is not LiquidProductBase) throw new ArgumentException("You can fill tanks only with liquids");
+            if (product is not LiquidProductBase)
+                throw new IncompatibleProductException(product.GetType().Name, typeof(LiquidProductBase).Name);
 
             if (_semitrailerProducts.Count == 0 ||
                 (_semitrailerProducts.Count != 0 && _semitrailerProducts.First().GetType() == product.GetType()))
@@ -30,7 +32,7 @@ namespace TransportCompanyLib.Models.Semitrailers
             }
             else
             {
-                throw new ArgumentException("This fuel uncompatible with fuel in semitrailer", product.GetType().Name);
+                throw new IncompatibleProductException(product.GetType().Name, _semitrailerProducts.First().GetType().Name);
             }
         }
     }

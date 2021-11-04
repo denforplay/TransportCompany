@@ -93,6 +93,9 @@ namespace TransportCompanyLib.Models.Semitrailers
             }
         }
 
+        /// <summary>
+        /// Remove all products from semitrailer
+        /// </summary>
         public void UnloadAllProducts()
         {
             _semitrailerProducts.Clear();
