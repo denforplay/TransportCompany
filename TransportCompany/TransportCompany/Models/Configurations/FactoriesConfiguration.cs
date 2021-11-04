@@ -6,6 +6,7 @@ using TransportCompanyLib.Models.Factories.SemitrailerFactories;
 using TransportCompanyLib.Models.Factories.TractorFactories;
 using TransportCompanyLib.Models.Products;
 using TransportCompanyLib.Models.Products.FuelProducts;
+using TransportCompanyLib.Models.Products.HouseholdGoods.HouseholdChemicals;
 using TransportCompanyLib.Models.Products.NeedColdProducts;
 using TransportCompanyLib.Models.Semitrailers;
 using TransportCompanyLib.Models.SemitrailerTractors;
@@ -27,6 +28,8 @@ namespace TransportCompanyLib.Models.Configurations
             { typeof(Fish), new FromXmlNeedFrozenProductFactory<Fish>() },
             { typeof(Milk), new FromXmlNeedFrozenProductFactory<Milk>() },
             { typeof(Yogurt), new FromXmlNeedFrozenProductFactory<Yogurt>() },
+            { typeof(Detergent), new FromXmlHouseholdsFactory<Detergent>() },
+            { typeof(WashingPowder), new FromXmlHouseholdsFactory<WashingPowder>() }
         };
 
         /// <summary>
@@ -36,6 +39,7 @@ namespace TransportCompanyLib.Models.Configurations
         {
             { typeof(RefrigeratorSemitrailer), new FromXmlRefrigeratorSemitrailerFactory() },
             { typeof(TankSemitrailer), new FromXmlTankSemitrailerFactory() },
+            { typeof(TiltSemitrailer), new FromXmlTiltSemitrailerFactory() }
         };
 
         /// <summary>

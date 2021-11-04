@@ -12,7 +12,7 @@ namespace TransportCompanyLib.Models.Factories.ProductFactories
     {
 
         /// <summary>
-        /// Returns instance of liquid factory from xml data
+        /// Returns instance of liquid product from xml data
         /// </summary>
         /// <param name="xmlNode">Xml data from which create liqiud product</param>
         /// <returns>Returns luquid product base</returns>
@@ -20,8 +20,8 @@ namespace TransportCompanyLib.Models.Factories.ProductFactories
         {
             float productWeight = float.Parse(xmlNode[nameof(LiquidProductBase.WeightPerProduct)].InnerText);
             float productVolume = float.Parse(xmlNode[nameof(LiquidProductBase.VolumePerProduct)].InnerText);
-            T fuelProduct = (T)Activator.CreateInstance(typeof(T), productWeight, productVolume);
-            return fuelProduct;
+            T liquidProduct = (T)Activator.CreateInstance(typeof(T), productWeight, productVolume);
+            return liquidProduct;
         }
     }
 }

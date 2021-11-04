@@ -9,6 +9,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TransportCompanyTests", "Tr
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "XmlDataWorker", "XmlDataWorker\XmlDataWorker.csproj", "{D9BFD8EF-D203-4A8E-9EBD-F77617E88321}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XmlDataWorkerTests", "XmlDataWorkerTests\XmlDataWorkerTests.csproj", "{F2B11E83-A436-4CDD-927D-89433DA7593D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{D9BFD8EF-D203-4A8E-9EBD-F77617E88321}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D9BFD8EF-D203-4A8E-9EBD-F77617E88321}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D9BFD8EF-D203-4A8E-9EBD-F77617E88321}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F2B11E83-A436-4CDD-927D-89433DA7593D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F2B11E83-A436-4CDD-927D-89433DA7593D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F2B11E83-A436-4CDD-927D-89433DA7593D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F2B11E83-A436-4CDD-927D-89433DA7593D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
