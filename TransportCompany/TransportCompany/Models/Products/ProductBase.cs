@@ -47,7 +47,7 @@ namespace TransportCompanyLib.Models.Products
         {
             if (obj is ProductBase product)
             {
-                return GetType().Name == product.GetType().Name 
+                return GetType().Name == product.GetType().Name
                     && WeightPerProduct == product.WeightPerProduct
                     && VolumePerProduct == product.VolumePerProduct;
             }

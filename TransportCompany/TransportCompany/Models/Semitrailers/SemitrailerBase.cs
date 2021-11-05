@@ -85,7 +85,7 @@ namespace TransportCompanyLib.Models.Semitrailers
         /// <param name="productCount">Count of products to unload</param>
         public void Unload(ProductBase product, int productCount)
         {
-            while(productCount-- != 0 && _semitrailerProducts.Count != 0)
+            while (productCount-- != 0 && _semitrailerProducts.Count != 0)
             {
                 var findedProduct = _semitrailerProducts.Last(pr => pr.Equals(product));
                 if (findedProduct is null) break;

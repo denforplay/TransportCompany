@@ -37,16 +37,5 @@ namespace TransportCompanyTests.ModelTests.SemitrailersTests
             refrigeratorSemitrailer.Unload(new Milk(1, 0.5f, new TemperatureLimit(0, 5)), 1);
             Assert.Equal(expected, refrigeratorSemitrailer.CurrentProductsWeight);
         }
-
-        [Fact]
-        public void LoadRefrigeratorSemitrailer_Test1_ReturnsTrue()
-        {
-            float expected = 2.5f;
-            var refrigeratorSemitrailer = new RefrigeratorSemitrailer(10, 10, new TemperatureLimit(-10, 5));
-            refrigeratorSemitrailer.Load(new Milk(1, 0.5f, new TemperatureLimit(0, 5)), 1);
-            refrigeratorSemitrailer.Load(new Yogurt(0.5f, 1, new TemperatureLimit(0, 3)), 1);
-            refrigeratorSemitrailer.Load(new Milk(1, 0.5f, new TemperatureLimit(0, 5)), 1);
-            Assert.Equal(expected, refrigeratorSemitrailer.CurrentProductsWeight);
-        }
     }
 }

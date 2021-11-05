@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace TransportCompanyLib.Models.Products.NeedColdProducts
+﻿namespace TransportCompanyLib.Models.Products.NeedColdProducts
 {
     /// <summary>
     /// Implements products that need cold

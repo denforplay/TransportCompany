@@ -8,7 +8,7 @@ namespace TransportCompanyTests.ProductsTests
     public class ColdProductsTests
     {
         [Fact]
-        public void CreateMilkProduct_LowerTemperetureHigherThanHigherTemperature_ThrowsArgumentException()
+        public void CreateNeedColdProduct_LowerTemperetureHigherThanHigherTemperature_ThrowsArgumentException()
         {
             Assert.Throws<ArgumentException>(() => new Milk(1, 1, new TemperatureLimit(5, 0)));
         }

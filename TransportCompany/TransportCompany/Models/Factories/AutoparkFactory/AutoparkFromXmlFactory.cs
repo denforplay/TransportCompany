@@ -17,7 +17,7 @@ namespace TransportCompanyLib.Models.Factories.AutoparkFactory
         public Autopark Create(XmlNode xmlNode)
         {
             Autopark autopark = new();
-            foreach(XmlNode semitrailer in xmlNode[nameof(Autopark.Semitrailers)].ChildNodes)
+            foreach (XmlNode semitrailer in xmlNode[nameof(Autopark.Semitrailers)].ChildNodes)
             {
                 autopark.AddSemitrailer(FactoriesConfiguration.SemitrailerFactories[Type.GetType(semitrailer.Name)].Create(semitrailer));
             }

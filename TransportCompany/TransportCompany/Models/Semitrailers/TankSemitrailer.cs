@@ -1,5 +1,4 @@
-﻿using System;
-using System.Linq;
+﻿using System.Linq;
 using TransportCompanyLib.Exceptions;
 using TransportCompanyLib.Models.Products;
 using TransportCompanyLib.Models.Products.FuelProducts;

@@ -16,7 +16,7 @@ namespace TransportCompanyLib.Models.SemitrailerTractors
         /// Connected to tractor semitrailer
         /// </summary>
         public SemitrailerBase Semitrailer => _semitrailer;
-        
+
         /// <summary>
         /// Max semitrailer weight that can be connected
         /// </summary>

@@ -33,9 +33,9 @@ namespace TransportCompanyLib.Models.Semitrailers
                 throw new ArgumentException("In refregerator you can load only products which need cold");
             }
 
-            if (needColdProduct.TemperatureLimit.IsInOtherLimits(TemperatureLimit))
+            if (needColdProduct.TemperatureLimit.IsInOtherLimit(TemperatureLimit))
             {
-                if (_semitrailerProducts.TrueForAll(pr => (pr is NeedColdProductBase coldPr) && needColdProduct.TemperatureLimit.IsInOtherLimits(coldPr.TemperatureLimit)))
+                if (_semitrailerProducts.TrueForAll(pr => (pr is NeedColdProductBase coldPr) && needColdProduct.TemperatureLimit.IsInOtherLimit(coldPr.TemperatureLimit)))
                 {
                     base.Load(product, count);
                 }
