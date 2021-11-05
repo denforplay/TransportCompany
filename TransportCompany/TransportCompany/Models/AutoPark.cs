@@ -34,6 +34,33 @@ namespace TransportCompanyLib.Models
             _semitrailers = new List<SemitrailerBase>();
         }
 
+        public List<SemitrailerTractorBase> GetCurrentCouplings()
+        {
+            return _semitrailerTractors.FindAll(tractor => tractor.Semitrailer != null);
+        }
+
+        public List<Coupling> GetPossibleCouplings()
+        {
+            List<SemitrailerTractorBase> currentCouplings = GetCurrentCouplings();
+            List<Coupling> possibleCouplings = new List<Coupling>();
+
+            for (int i = 0; i < _semitrailerTractors.Count; i++)
+            {
+                if (_semitrailerTractors[i].Semitrailer is not null)
+                    continue;
+
+                for (int j = 0; j < _semitrailers.Count; j++)
+                {
+                    if (currentCouplings.Any(x => x.Semitrailer == _semitrailers[j]))
+                        continue;
+
+                    possibleCouplings.Add(new Coupling(_semitrailerTractors[i], _semitrailers[j]));
+                }
+            }
+
+            return possibleCouplings;
+        }
+
         /// <summary>
         /// Add tractor in autopark
         /// </summary>
@@ -92,7 +119,8 @@ namespace TransportCompanyLib.Models
         /// <returns>List of tractors with connected semitrailers that can be loaded</returns>
         public List<SemitrailerTractorBase> FindAllHitchesThatCanBeLoaded()
         {
-            return _semitrailerTractors.FindAll(tractor => tractor.Semitrailer != null && tractor.Semitrailer.CurrentProductsWeight < tractor.Semitrailer.MaxCarryingWeight);
+            return GetCurrentCouplings().FindAll(coupling => coupling.MaxSemitrailerWeight > coupling.Semitrailer.CurrentProductsWeight
+            && coupling.Semitrailer.MaxCarryingWeight != coupling.Semitrailer.CurrentProductsWeight);
         }
 
         /// <summary>
@@ -101,9 +129,8 @@ namespace TransportCompanyLib.Models
         /// <returns>List of tractors with connected semitrailers that can be loaded fully</returns>
         public List<SemitrailerTractorBase> FindAllHitchesThatCanBeLoadedFully()
         {
-            return _semitrailerTractors.FindAll(tractor => tractor.Semitrailer != null
-            && tractor.Semitrailer.MaxCarryingWeight <= tractor.MaxSemitrailerWeight
-            && tractor.Semitrailer.MaxCarryingWeight != tractor.Semitrailer.CurrentProductsWeight);
+            return GetCurrentCouplings().FindAll(coupling => coupling.Semitrailer.MaxCarryingWeight <= coupling.MaxSemitrailerWeight
+            && coupling.Semitrailer.MaxCarryingWeight != coupling.Semitrailer.CurrentProductsWeight);
         }
 
         public override bool Equals(object obj)
