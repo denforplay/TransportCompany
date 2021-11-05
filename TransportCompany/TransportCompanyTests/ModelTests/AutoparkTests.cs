@@ -17,7 +17,7 @@ namespace TransportCompanyTests.ModelTests
             Type expectedType = typeof(TankSemitrailer);
             Autopark autopark = new Autopark();
             autopark.AddSemitrailer(new TankSemitrailer(100, 100));
-            autopark.AddSemitrailer(new RefrigeratorSemitrailer(100, 100, 0, 10));
+            autopark.AddSemitrailer(new RefrigeratorSemitrailer(100, 100, new TemperatureLimit(0, 10)));
             Type actualType = autopark.FindSemitrailer<TankSemitrailer>().GetType();
             Assert.Equal(expectedType, actualType);
         }
@@ -30,7 +30,7 @@ namespace TransportCompanyTests.ModelTests
             autopark.AddTractor(new MANTractor(100));
             autopark.AddTractor(new MANTractor(100));
             autopark.AddSemitrailer(new TankSemitrailer(100, 100));
-            autopark.AddSemitrailer(new RefrigeratorSemitrailer(100, 100, 0, 10));
+            autopark.AddSemitrailer(new RefrigeratorSemitrailer(100, 100, new TemperatureLimit(0, 10)));
             var actual = autopark.FindAllHitchesThatCanBeLoaded();
             Assert.Equal(expected, actual);
         }
@@ -43,7 +43,7 @@ namespace TransportCompanyTests.ModelTests
             var tractor1 = new MANTractor(100);
             var tractor2 = new MANTractor(100);
             var tankSemitrailer = new TankSemitrailer(100, 100);
-            var refrigeratorSemitrailer = new RefrigeratorSemitrailer(100, 100, 0, 10);
+            var refrigeratorSemitrailer = new RefrigeratorSemitrailer(100, 100, new TemperatureLimit(0, 10));
             var expected = new List<SemitrailerTractorBase>
             {
                 tractor1, tractor2
@@ -66,8 +66,8 @@ namespace TransportCompanyTests.ModelTests
             var tractor1 = new MANTractor(100);
             var tractor2 = new MANTractor(100);
             var tankSemitrailer = new TankSemitrailer(100, 100);
-            var refrigeratorSemitrailer = new RefrigeratorSemitrailer(100, 100, 0, 10);
-            refrigeratorSemitrailer.Load(new Milk(100, 100, 5, 10), 1);
+            var refrigeratorSemitrailer = new RefrigeratorSemitrailer(100, 100, new TemperatureLimit(0, 10));
+            refrigeratorSemitrailer.Load(new Milk(100, 100, new TemperatureLimit(5, 10)), 1);
             var expected = new List<SemitrailerTractorBase>
             {
                 tractor1
@@ -89,10 +89,10 @@ namespace TransportCompanyTests.ModelTests
             Type expected = typeof(RefrigeratorSemitrailer);
             Autopark autopark = new Autopark();
             var tankSemitrailer = new TankSemitrailer(100, 100);
-            var refrigeratorSemitrailer = new RefrigeratorSemitrailer(100, 100, 0, 10);
+            var refrigeratorSemitrailer = new RefrigeratorSemitrailer(100, 100, new TemperatureLimit(0, 10));
             autopark.AddSemitrailer(tankSemitrailer);
             autopark.AddSemitrailer(refrigeratorSemitrailer);
-            var findTemplate = new RefrigeratorSemitrailer(100, 100, 0, 5);
+            var findTemplate = new RefrigeratorSemitrailer(100, 100, new TemperatureLimit(0, 5));
             var actual = autopark.FindSemitrailerByTemplate(findTemplate);
             Assert.Equal(expected, actual.GetType());
         }
@@ -107,8 +107,8 @@ namespace TransportCompanyTests.ModelTests
             var tractor3 = new MANTractor(100);
             var tankSemitrailer1 = new TankSemitrailer(100, 100);
             var tankSemitrailer2 = new TankSemitrailer(200, 200);
-            var refrigeratorSemitrailer = new RefrigeratorSemitrailer(100, 100, 0, 10);
-            refrigeratorSemitrailer.Load(new Milk(100, 100, 5, 10), 1);
+            var refrigeratorSemitrailer = new RefrigeratorSemitrailer(100, 100, new TemperatureLimit(0, 10));
+            refrigeratorSemitrailer.Load(new Milk(100, 100, new TemperatureLimit(5, 10)), 1);
             tankSemitrailer1.Load(new OctanePetrol_95(50, 50), 1);
             tractor1.ConnectSemitrailer(tankSemitrailer1);
             tractor2.ConnectSemitrailer(refrigeratorSemitrailer);

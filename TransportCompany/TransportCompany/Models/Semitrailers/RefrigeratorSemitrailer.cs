@@ -1,39 +1,30 @@
 ﻿using System;
-using System.Linq;
+using TransportCompanyLib.Extensions;
 using TransportCompanyLib.Models.Products;
 using TransportCompanyLib.Models.Products.NeedColdProducts;
 
 namespace TransportCompanyLib.Models.Semitrailers
 {
-    public class RefrigeratorSemitrailer : SemitrailerBase
+    /// <summary>
+    /// Implements refrigerator semitrailer
+    /// </summary>
+    public sealed class RefrigeratorSemitrailer : SemitrailerBase
     {
         /// <summary>
         /// Refrigerator semitrailer constructor
         /// </summary>
         /// <param name="maxCarryingWeight">Max carrying refrigerator semitrailer weight</param>
         /// <param name="maxCarryingVolume">Max carrying semitrailer volume</param>
-        /// <param name="lowerTemperature">Low limit temperature in semitrailer</param>
-        /// <param name="highTemperature">High limit temperature in semitrailer</param>
-        public RefrigeratorSemitrailer(float maxCarryingWeight, float maxCarryingVolume, float lowerTemperature, float highTemperature) : base(maxCarryingWeight, maxCarryingVolume)
+        /// <param name="temperatureLimit">Semitrailer temperature limit</param>
+        public RefrigeratorSemitrailer(float maxCarryingWeight, float maxCarryingVolume, TemperatureLimit temperatureLimit) : base(maxCarryingWeight, maxCarryingVolume)
         {
-            if (highTemperature <= lowerTemperature)
-            {
-                throw new ArgumentException(nameof(highTemperature), "higher temperature must be higher than lower temperature");
-            }
-
-            LowerTemperature = lowerTemperature;
-            HighTemperature = highTemperature;
+            TemperatureLimit = temperatureLimit;
         }
 
         /// <summary>
         /// Low temperature limit
         /// </summary>
-        public float LowerTemperature { get; private set; }
-
-        /// <summary>
-        /// HIgh temperature limit
-        /// </summary>
-        public float HighTemperature { get; private set; }
+        public TemperatureLimit TemperatureLimit { get; private set; }
 
         public override void Load(ProductBase product, int count)
         {
@@ -42,9 +33,9 @@ namespace TransportCompanyLib.Models.Semitrailers
                 throw new ArgumentException("In refregerator you can load only products which need cold");
             }
 
-            if (needColdProduct.LowerTemperature >= LowerTemperature && needColdProduct.HigherTemperature <= HighTemperature)
+            if (needColdProduct.TemperatureLimit.IsInOtherLimits(TemperatureLimit))
             {
-                if (_semitrailerProducts.TrueForAll(pr => (pr is NeedColdProductBase coldPr) && needColdProduct.LowerTemperature >= coldPr.LowerTemperature && needColdProduct.HigherTemperature <= coldPr.HigherTemperature))
+                if (_semitrailerProducts.TrueForAll(pr => (pr is NeedColdProductBase coldPr) && needColdProduct.TemperatureLimit.IsInOtherLimits(coldPr.TemperatureLimit)))
                 {
                     base.Load(product, count);
                 }
@@ -53,6 +44,10 @@ namespace TransportCompanyLib.Models.Semitrailers
                     throw new ArgumentException("Product unconnactable with other products in refregerator");
                 }
             }
+            else
+            {
+                throw new ArgumentException("Product unconnactable with refregerator");
+            }
         }
 
         public override bool Equals(object obj)
@@ -60,9 +55,8 @@ namespace TransportCompanyLib.Models.Semitrailers
             if (obj is RefrigeratorSemitrailer semitrailer)
             {
                 return semitrailer.MaxCarryingWeight == this.MaxCarryingWeight
-                       && !semitrailer.SemitrailerProducts.Except(SemitrailerProducts).Any()
-                       && semitrailer.LowerTemperature == this.LowerTemperature
-                       && semitrailer.HighTemperature == this.HighTemperature;
+                       && semitrailer.SemitrailerProducts.IsEqual(SemitrailerProducts)
+                       && semitrailer.TemperatureLimit.CompareTo(TemperatureLimit) == 0;
             }
 
             return false;
@@ -73,8 +67,7 @@ namespace TransportCompanyLib.Models.Semitrailers
             int hash = 1292;
             hash += 14 * MaxCarryingWeight.GetHashCode();
             hash += 14 * MaxCarryingVolume.GetHashCode();
-            hash += 14 * HighTemperature.GetHashCode();
-            hash += 14 * LowerTemperature.GetHashCode();
+            hash += 14 * TemperatureLimit.GetHashCode();
             hash += 14 * CurrentCarryingVolume.GetHashCode();
             hash += 14 * CurrentProductsWeight.GetHashCode();
             return hash;
@@ -82,7 +75,7 @@ namespace TransportCompanyLib.Models.Semitrailers
 
         public override string ToString()
         {
-            return $"{GetType().Name} with temperatures between {LowerTemperature} and {HighTemperature}, with loaded {CurrentProductsWeight}/{MaxCarryingWeight} weight and {CurrentCarryingVolume}/{MaxCarryingVolume}";
+            return $"{GetType().Name} with temperatures between {TemperatureLimit}, with loaded {CurrentProductsWeight}/{MaxCarryingWeight} weight and {CurrentCarryingVolume}/{MaxCarryingVolume}";
         }
     }
 }

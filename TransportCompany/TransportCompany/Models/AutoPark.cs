@@ -18,12 +18,12 @@ namespace TransportCompanyLib.Models
         /// <summary>
         /// Autork semitrailer tractors
         /// </summary>
-        public List<SemitrailerTractorBase> SemitrailerTractors => _semitrailerTractors;
+        public IReadOnlyList<SemitrailerTractorBase> SemitrailerTractors => _semitrailerTractors;
 
         /// <summary>
         /// Autopark semitrailers
         /// </summary>
-        public List<SemitrailerBase> Semitrailers => _semitrailers;
+        public IReadOnlyList<SemitrailerBase> Semitrailers => _semitrailers;
 
         /// <summary>
         /// Autopark constructor
@@ -62,9 +62,15 @@ namespace TransportCompanyLib.Models
             return _semitrailers.Find(trailer => trailer.GetType() == typeof(T)) as T;
         }
 
+        /// <summary>
+        /// Find semitrailer by template
+        /// </summary>
+        /// <typeparam name="T">Typeof semitrailer to find</typeparam>
+        /// <param name="semitrailerTemplate">Semitrailer template</param>
+        /// <returns>Finded semitrailer of type T</returns>
         public SemitrailerBase FindSemitrailerByTemplate<T>(T semitrailerTemplate) where T : SemitrailerBase
         {
-            return Semitrailers.Find(
+            return _semitrailers.Find(
                 semitrailer => semitrailer.GetType() == typeof(T)
             && semitrailer.MaxCarryingVolume == semitrailerTemplate.MaxCarryingVolume
             && semitrailer.MaxCarryingWeight == semitrailer.MaxCarryingWeight);

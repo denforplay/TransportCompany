@@ -19,9 +19,10 @@ namespace TransportCompanyLib.Models.Factories.SemitrailerFactories
         {
             float maxCarryingSemitrailerWeight = float.Parse(xmlNode[nameof(RefrigeratorSemitrailer.MaxCarryingWeight)].InnerText);
             float maxCarryingSemitrailerVolume = float.Parse(xmlNode[nameof(RefrigeratorSemitrailer.MaxCarryingVolume)].InnerText);
-            float lowerRefrigeratorTemperature = float.Parse(xmlNode[nameof(RefrigeratorSemitrailer.LowerTemperature)].InnerText);
-            float higherRefrigeratorTemperature = float.Parse(xmlNode[nameof(RefrigeratorSemitrailer.HighTemperature)].InnerText);
-            RefrigeratorSemitrailer refrigeratorSemitrailer = new(maxCarryingSemitrailerWeight, maxCarryingSemitrailerVolume, lowerRefrigeratorTemperature, higherRefrigeratorTemperature);
+            var temperatureLimits = xmlNode[nameof(RefrigeratorSemitrailer.TemperatureLimit)];
+            float lowerRefrigeratorTemperature = float.Parse(temperatureLimits[nameof(TemperatureLimit.LowerTemperature)].InnerText);
+            float higherRefrigeratorTemperature = float.Parse(temperatureLimits[nameof(TemperatureLimit.HigherTemperature)].InnerText);
+            RefrigeratorSemitrailer refrigeratorSemitrailer = new(maxCarryingSemitrailerWeight, maxCarryingSemitrailerVolume, new TemperatureLimit(lowerRefrigeratorTemperature, higherRefrigeratorTemperature));
             foreach (XmlNode product in xmlNode[nameof(RefrigeratorSemitrailer.SemitrailerProducts)].ChildNodes)
             {
                 Type productType = Type.GetType(product.Name);

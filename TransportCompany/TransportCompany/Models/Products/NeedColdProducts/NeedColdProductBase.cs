@@ -2,20 +2,25 @@
 
 namespace TransportCompanyLib.Models.Products.NeedColdProducts
 {
+    /// <summary>
+    /// Implements products that need cold
+    /// </summary>
     public abstract class NeedColdProductBase : ProductBase
     {
-        public float LowerTemperature { get; private set; }
-        public float HigherTemperature { get; private set; }
+        /// <summary>
+        /// Product temperature limits
+        /// </summary>
+        public TemperatureLimit TemperatureLimit { get; private set; }
 
-        protected NeedColdProductBase(float weightPerProduct, float volumePerProduct, float lowerTemperature, float highTemperature) : base(weightPerProduct, volumePerProduct)
+        /// <summary>
+        /// Need cold producct base constructor
+        /// </summary>
+        /// <param name="weightPerProduct">Product weight</param>
+        /// <param name="volumePerProduct">Product volume</param>
+        /// <param name="temperatureLimit">Temperature limit</param>
+        protected NeedColdProductBase(float weightPerProduct, float volumePerProduct, TemperatureLimit temperatureLimit) : base(weightPerProduct, volumePerProduct)
         {
-            if (lowerTemperature > highTemperature)
-            {
-                throw new ArgumentException("Lower temperature must be lower than higher");
-            }
-
-            LowerTemperature = lowerTemperature;
-            HigherTemperature = highTemperature;
+            TemperatureLimit = temperatureLimit;
         }
 
         /// <summary>
@@ -30,8 +35,7 @@ namespace TransportCompanyLib.Models.Products.NeedColdProducts
                 return GetType().Name == product.GetType().Name
                     && WeightPerProduct == product.WeightPerProduct
                     && VolumePerProduct == product.VolumePerProduct
-                    && LowerTemperature == product.LowerTemperature
-                    && HigherTemperature == product.HigherTemperature;
+                    && TemperatureLimit.CompareTo(product.TemperatureLimit) == 0;
             }
 
             return false;
@@ -46,8 +50,7 @@ namespace TransportCompanyLib.Models.Products.NeedColdProducts
             int hash = 123;
             hash += WeightPerProduct.GetHashCode();
             hash += VolumePerProduct.GetHashCode();
-            hash += LowerTemperature.GetHashCode();
-            hash += HigherTemperature.GetHashCode();
+            hash += TemperatureLimit.GetHashCode();
             return hash;
         }
     }

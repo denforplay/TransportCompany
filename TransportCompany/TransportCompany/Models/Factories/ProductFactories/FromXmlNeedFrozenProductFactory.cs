@@ -19,9 +19,10 @@ namespace TransportCompanyLib.Models.Factories.ProductFactories
         {
             float productWeight = float.Parse(xmlNode[nameof(NeedColdProductBase.WeightPerProduct)].InnerText);
             float productVolume = float.Parse(xmlNode[nameof(NeedColdProductBase.VolumePerProduct)].InnerText);
-            float lowerTemperature = float.Parse(xmlNode[nameof(NeedColdProductBase.LowerTemperature)].InnerText);
-            float higherTemperature = float.Parse(xmlNode[nameof(NeedColdProductBase.HigherTemperature)].InnerText);
-            T needFrozeProduct = (T)Activator.CreateInstance(typeof(T), productWeight, productVolume, lowerTemperature, higherTemperature);
+            var temperatureLimits = xmlNode[nameof(NeedColdProductBase.TemperatureLimit)];
+            float lowerTemperature = float.Parse(temperatureLimits[nameof(TemperatureLimit.LowerTemperature)].InnerText);
+            float higherTemperature = float.Parse(temperatureLimits[nameof(TemperatureLimit.HigherTemperature)].InnerText);
+            T needFrozeProduct = (T)Activator.CreateInstance(typeof(T), productWeight, productVolume, new TemperatureLimit(lowerTemperature, higherTemperature));
             return needFrozeProduct;
         }
     }

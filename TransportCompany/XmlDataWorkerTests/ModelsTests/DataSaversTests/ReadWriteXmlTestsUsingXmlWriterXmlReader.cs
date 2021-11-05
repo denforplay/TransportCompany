@@ -1,4 +1,5 @@
-﻿using TransportCompanyLib.Models.Factories.ProductFactories;
+﻿using TransportCompanyLib.Models;
+using TransportCompanyLib.Models.Factories.ProductFactories;
 using TransportCompanyLib.Models.Factories.SemitrailerFactories;
 using TransportCompanyLib.Models.Factories.TractorFactories;
 using TransportCompanyLib.Models.Products.FuelProducts;
@@ -39,7 +40,7 @@ namespace XmlDataWorkerTests.ModelTests.DataSaversTests
         [Fact]
         public void TestWritingReadingNeedFrozeProductDataInXml()
         {
-            Milk expectedProduct = new Milk(5, 2.5f, -10, 5);
+            Milk expectedProduct = new Milk(5, 2.5f, new TemperatureLimit(-10, 5));
             var writerToXml = new XmlSaveLoader<Milk>(new XmlReaderLoader(), new XmlWriterToXml<Milk>(), new FromXmlNeedFrozenProductFactory<Milk>());
             writerToXml.Save(expectedProduct);
             Milk actualProduct = writerToXml.Load();
@@ -60,8 +61,8 @@ namespace XmlDataWorkerTests.ModelTests.DataSaversTests
         [Fact]
         public void TestWritingRefrigeratorSemitrailertDataInXml()
         {
-            RefrigeratorSemitrailer expectedSemitrailer = new RefrigeratorSemitrailer(500, 1000, -5, 5);
-            expectedSemitrailer.Load(new Yogurt(1, 1, -4, 4), 10);
+            RefrigeratorSemitrailer expectedSemitrailer = new RefrigeratorSemitrailer(500, 1000, new TemperatureLimit(-5, 5));
+            expectedSemitrailer.Load(new Yogurt(1, 1, new TemperatureLimit(-4, 4)), 10);
             var writerToXml = new XmlSaveLoader<RefrigeratorSemitrailer>(new XmlReaderLoader(), new XmlWriterToXml<RefrigeratorSemitrailer>(), new FromXmlRefrigeratorSemitrailerFactory());
             writerToXml.Save(expectedSemitrailer);
             RefrigeratorSemitrailer actualSemitrailer = writerToXml.Load();
@@ -83,8 +84,8 @@ namespace XmlDataWorkerTests.ModelTests.DataSaversTests
         public void TestWritingMANTractorDataInXml()
         {
             MANTractor expectedTractor = new MANTractor(100);
-            RefrigeratorSemitrailer expectedSemitrailer = new RefrigeratorSemitrailer(100, 250, -5, 5);
-            expectedSemitrailer.Load(new Yogurt(1, 1, -4, 4), 10);
+            RefrigeratorSemitrailer expectedSemitrailer = new RefrigeratorSemitrailer(100, 250, new TemperatureLimit(-5, 5));
+            expectedSemitrailer.Load(new Yogurt(1, 1, new TemperatureLimit(-4, 4)), 10);
             expectedTractor.ConnectSemitrailer(expectedSemitrailer);
             var serializer = new XmlSaveLoader<MANTractor>(new XmlReaderLoader(), new XmlWriterToXml<MANTractor>(), new FromXmlTractorFactory<MANTractor>());
             serializer.Save(expectedTractor);

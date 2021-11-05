@@ -14,7 +14,7 @@ namespace TransportCompanyLib.Extensions
         /// <param name="currentCollection">Current collection</param>
         /// <param name="otherCollection">Other collection to compare with current collection</param>
         /// <returns>Returns true if both lists are similar, other returns false</returns>
-        public static bool IsEqual<T>(this List<T> currentCollection, List<T> otherCollection)
+        public static bool IsEqual<T>(this IReadOnlyList<T> currentCollection, IReadOnlyList<T> otherCollection)
         {
             if (currentCollection.Count != otherCollection.Count)
                 return false;

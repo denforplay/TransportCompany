@@ -1,8 +1,17 @@
 ﻿namespace TransportCompanyLib.Models.Products.NeedColdProducts
 {
+    /// <summary>
+    /// Implements milk product
+    /// </summary>
     public sealed class Milk : NeedColdProductBase
     {
-        public Milk(float weightPerProduct, float volumePerProduct, float lowerTemperature, float highTemperature) : base(weightPerProduct, volumePerProduct, lowerTemperature, highTemperature)
+        /// <summary>
+        /// Milk constructor
+        /// </summary>
+        /// <param name="weightPerProduct">Product weight</param>
+        /// <param name="volumePerProduct">Product volume</param>
+        /// <param name="temperatureLimit">Temperature limit</param>
+        public Milk(float weightPerProduct, float volumePerProduct, TemperatureLimit temperatureLimit) : base(weightPerProduct, volumePerProduct, temperatureLimit)
         {
         }
     }
