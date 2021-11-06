@@ -34,14 +34,31 @@ namespace TransportCompanyLib.Models
             _semitrailers = new List<SemitrailerBase>();
         }
 
-        public List<SemitrailerTractorBase> GetCurrentCouplings()
+        /// <summary>
+        /// Method finds list of couplings, consists of semitrailer and tractor that already connected
+        /// </summary>
+        /// <returns>List of couplings</returns>
+        public List<Coupling> GetCurrentCouplings()
         {
-            return _semitrailerTractors.FindAll(tractor => tractor.Semitrailer != null);
+            List<Coupling> couplings = new List<Coupling>();
+            foreach (var tractor in _semitrailerTractors)
+            {
+                if (tractor.Semitrailer is not null)
+                {
+                    couplings.Add(new Coupling(tractor, tractor.Semitrailer));
+                }
+            }
+
+            return couplings;
         }
 
+        /// <summary>
+        /// Method finds list of couplings, consists of semitrailer and tractor that can be connected
+        /// </summary>
+        /// <returns>List of couplings</returns>
         public List<Coupling> GetPossibleCouplings()
         {
-            List<SemitrailerTractorBase> currentCouplings = GetCurrentCouplings();
+            List<Coupling> currentCouplings = GetCurrentCouplings();
             List<Coupling> possibleCouplings = new List<Coupling>();
 
             for (int i = 0; i < _semitrailerTractors.Count; i++)
@@ -64,7 +81,7 @@ namespace TransportCompanyLib.Models
         /// <summary>
         /// Add tractor in autopark
         /// </summary>
-        /// <param name="semitrailerTractorBase"></param>
+        /// <param name="semitrailerTractorBase">Tractor to add in autopark</param>
         public void AddTractor(SemitrailerTractorBase semitrailerTractorBase)
         {
             _semitrailerTractors.Add(semitrailerTractorBase);
@@ -97,10 +114,7 @@ namespace TransportCompanyLib.Models
         /// <returns>Finded semitrailer of type T</returns>
         public SemitrailerBase FindSemitrailerByTemplate<T>(T semitrailerTemplate) where T : SemitrailerBase
         {
-            return _semitrailers.Find(
-                semitrailer => semitrailer.GetType() == typeof(T)
-            && semitrailer.MaxCarryingVolume == semitrailerTemplate.MaxCarryingVolume
-            && semitrailer.MaxCarryingWeight == semitrailer.MaxCarryingWeight);
+            return _semitrailers.Find(semitrailer => semitrailer is T semitrailerType && semitrailerType.Equals(semitrailerTemplate));
         }
 
         /// <summary>
@@ -108,18 +122,18 @@ namespace TransportCompanyLib.Models
         /// </summary>
         /// <typeparam name="T">Type of product to find in semitrailers</typeparam>
         /// <returns>List of histches tractor-semitrailer that carry product of type T</returns>
-        public List<SemitrailerTractorBase> FindAllHitchesForProduct<T>() where T : ProductBase
+        public List<Coupling> FindAllCouplingsForProduct<T>() where T : ProductBase
         {
-            return _semitrailerTractors.FindAll(tractor => tractor.Semitrailer != null && tractor.Semitrailer.SemitrailerProducts.Find(x => x.GetType() == typeof(T)) != null);
+            return GetCurrentCouplings().FindAll(coupling => coupling.Semitrailer != null && coupling.Semitrailer.SemitrailerProducts.Find(x => x.GetType() == typeof(T)) != null);
         }
 
         /// <summary>
         /// Find all hitches in what can be loaded products
         /// </summary>
         /// <returns>List of tractors with connected semitrailers that can be loaded</returns>
-        public List<SemitrailerTractorBase> FindAllHitchesThatCanBeLoaded()
+        public List<Coupling> FindAllCouplingsThatCanBeLoaded()
         {
-            return GetCurrentCouplings().FindAll(coupling => coupling.MaxSemitrailerWeight > coupling.Semitrailer.CurrentProductsWeight
+            return GetCurrentCouplings().FindAll(coupling => coupling.Tractor.MaxSemitrailerWeight > coupling.Semitrailer.CurrentProductsWeight
             && coupling.Semitrailer.MaxCarryingWeight != coupling.Semitrailer.CurrentProductsWeight);
         }
 
@@ -127,9 +141,9 @@ namespace TransportCompanyLib.Models
         /// Find all hitches in what can be loaded products fully
         /// </summary>
         /// <returns>List of tractors with connected semitrailers that can be loaded fully</returns>
-        public List<SemitrailerTractorBase> FindAllHitchesThatCanBeLoadedFully()
+        public List<Coupling> FindAllCouplingsThatCanBeLoadedFully()
         {
-            return GetCurrentCouplings().FindAll(coupling => coupling.Semitrailer.MaxCarryingWeight <= coupling.MaxSemitrailerWeight
+            return GetCurrentCouplings().FindAll(coupling => coupling.Semitrailer.MaxCarryingWeight <= coupling.Tractor.MaxSemitrailerWeight
             && coupling.Semitrailer.MaxCarryingWeight != coupling.Semitrailer.CurrentProductsWeight);
         }
 

@@ -1,7 +1,14 @@
 ﻿namespace TransportCompanyLib.Models.SemitrailerTractors
 {
+    /// <summary>
+    /// Man tractor
+    /// </summary>
     public sealed class MANTractor : SemitrailerTractorBase
     {
+        /// <summary>
+        /// Man tractor constructor
+        /// </summary>
+        /// <param name="maxSemitrailerWeight">Max semitrailer weight that cen be load to tractor</param>
         public MANTractor(float maxSemitrailerWeight) : base(maxSemitrailerWeight)
         {
         }

@@ -21,8 +21,8 @@ namespace TransportCompanyLib.Models
         /// <summary>
         /// Coupling constructor
         /// </summary>
-        /// <param name="tractor">Tractor</param>
-        /// <param name="semitrailer">Semitrailer</param>
+        /// <param name="tractor">Tractor for coupling</param>
+        /// <param name="semitrailer">Semitrailer for coupling</param>
         public Coupling(SemitrailerTractorBase tractor, SemitrailerBase semitrailer)
         {
             Tractor = tractor;
